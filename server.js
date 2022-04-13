@@ -4,7 +4,9 @@ const cors = require("cors");
 
 
 const dotenv=require ('dotenv')
-const dbConnect = require('./dbConnect')
+const dbConnect = require('./dbConnect');
+const authRoutes  = require('./routes/users/Auth');
+const { notFound, errorHandler } = require('./middlewear/errorMiddleware');
 
 
 // allow our node process to have access to the environment variables
@@ -20,5 +22,15 @@ const PORT= 5000
 
 app.use(cors());
 app.use(express.json());
+
+//routes
+
+//Users auth routes
+app.use("/api/auth", authRoutes);
+
+//errors
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, console.log(`server is running on running on port ${5000}`))

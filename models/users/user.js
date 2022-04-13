@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      required: true,
+      required: false,
     },
     firstname: {
       type: String,
@@ -23,15 +23,15 @@ const userSchema = new mongoose.Schema(
     },
     companyTitle: {
       type: String,
-      required: true,
+      required: false,
     },
     companyUrlSlug: {
       type: String,
-      required: true,
+      required: false,
     },
     phoneNumber: {
       type: String,
-      required: true,
+      required: false,
     },
     password: {
       type: String,
