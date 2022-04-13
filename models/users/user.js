@@ -63,7 +63,7 @@ userSchema.methods.createAccountVerificationToken = async function () {
     .createHash("sha256")
     .update(verificationToken)
     .digest("hex");
-  console.log("tojee", verificationToken);
+ 
   this.accountVerificationTokenExpires = Date.now() + 30 * 60 * 1000; //10 minutes
   return verificationToken;
 };
