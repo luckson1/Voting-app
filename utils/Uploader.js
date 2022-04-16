@@ -5,7 +5,7 @@ cloudinary.config({
     api_key: process.env.CLOUD_API_KEY,
     api_secret: process.env.CLOUD_API_SECRET
 });
-export const uploader = (req) => {
+ const uploader = (req) => {
     return new Promise((resolve, reject) => {
         const dUri = new Datauri();
         let image = dUri.format(path.extname(req.file.originalname).toString(), req.file.buffer);
@@ -16,3 +16,5 @@ export const uploader = (req) => {
         })
     });
 }
+
+module.exports=uploader

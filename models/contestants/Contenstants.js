@@ -105,6 +105,6 @@ contestantsSchema.virtual("totalVotes").get(function () {
   return total;
 });
 
-//create the model for users and expose it to our app
+//create the model for contestants and expose it to our app
 const Contestants = mongoose.model("Contestants", contestantsSchema);
 module.exports = Contestants;

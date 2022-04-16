@@ -5,6 +5,9 @@ const {registerUserCtrl, loginUserCtrl, emailVerificationCtrl, resendEmailVerifi
 authRoutes= express.Router()
 
 authRoutes.post('/register', registerUserCtrl);
+authRoutes.post('/login', loginUserCtrl);
+authRoutes.get('/verification/:token', emailVerificationCtrl);
+authRoutes.post('/resend', resendEmailVerificationCtrl);
 
 
 module.exports = authRoutes

@@ -10,6 +10,8 @@ function sendEmail(mailOptions) {
             return resolve(result);
         });
     });
+
+   
 }
 
 module.exports = { sendEmail };

@@ -1,7 +1,9 @@
 const expressAsyncHandler = require('express-async-handler');
+require('dotenv').config() 
 const generateToken = require('../../middlewear/generateTokens');
 const User = require('../../models/users/user');
 const { sendEmail } = require('../../utils/sendEmail');
+
 
 
 
@@ -12,7 +14,7 @@ const sendVerificationEmail = expressAsyncHandler(async (user, req, res) => {
         const token = user.createAccountVerificationToken();
 
         // Save the verification token
-        await token.save();
+        // await token.save();
 
         let subject = "Account Verification Token";
         let to = user?.email;
@@ -21,7 +23,7 @@ const sendVerificationEmail = expressAsyncHandler(async (user, req, res) => {
         let html = `<p>Hi ${user?.username}<p><br><p>Please click on the following <a href="${link}">link</a> to verify your account.</p> 
                   <br><p>If you did not request this, please ignore this email.</p>`;
 
-        await sendEmail({ to, from, subject, html });
+        sendEmail({ to, from, subject, html });
 
         res.status(200).json({ message: 'A verification email has been sent to ' + user.email + '.' });
     } catch (error) {
@@ -42,14 +44,15 @@ const {email}= req?.body
         if (userExists) throw new Error('User already exists')
 
         // if new, create one
-        const user = await User.create({ ...req.body })
+        const user = await User.create({ ...req.body,  })
 
         // save user
         user.save()
 
-        // send verification email
+        // // send verification email
         sendVerificationEmail(user, req, res);
-        res.json({ user })
+        
+        
     } catch (error) {
         res.json({ error })
     }
@@ -110,33 +113,24 @@ const resendEmailVerificationCtrl = expressAsyncHandler(async (req, res) => {
 // login user
 const loginUserCtrl = expressAsyncHandler(async (req, res) => {
     const { email, password } = req?.body
-
+try {
     // check if user exists
 
-    const userFound = await User.findOne({ email })
-    try {
-        // check if password match
-        if (userFound && (await userFound?.isPasswordMatch(password))) {
-            // check if user is verified
+    const user = await User.findOne({ email });
 
-            if (!userFound.isVerified) return res.status(401).json({ type: 'not-verified', message: 'Your account has not been verified.' });
+        if (!user) return res.status(401).json({msg: 'The email address ' + email + ' is not associated with any account. Double-check your email address and try again.'});
 
-            res.json({
-                _id: userFound?._id,
-                firstName: userFound?.firstName,
-                lastName: userFound?.lastName,
-                email: userFound?.email,
-                image: userFound?.image,
-                companyTitle: userFound?.companyTitle,
-                companyUrlSlug: userFound?.companyUrlSlug,
-                phoneNumber: userFound?.phoneNumber,
-                isAdmin: userFound?.isAdmin,
-                isAccountVerified: userFound?.isAccountVerified,
-                token: generateToken(userFound?._id),
+        //validate password
+        if (!user.isPasswordMatched(password)) return res.status(401).json({message: 'Invalid email or password'});
+
+        // Make sure the user has been verified
+        if (!user.isVerified) return res.status(401).json({ type: 'not-verified', message: 'Your account has not been verified.' });
+
+        // Login successful, write token, and send back user
+            res.status(200).json({
+                token: generateToken(user),user:user
             });
-        }
-
-    } catch (error) {
+        } catch (error) {
         res.status(500).json({ message: error.message });
     }
 

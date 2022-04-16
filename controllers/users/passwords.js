@@ -78,7 +78,7 @@ const resetPasswordCtrl = expressAsyncHandler(async (req, res) => {
     user.password = req.body.password;
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
-    user?.isVerified = true;
+    user.isVerified = true;
 
     // Save the updated user object
     await user.save();
@@ -92,4 +92,4 @@ const resetPasswordCtrl = expressAsyncHandler(async (req, res) => {
 });
 
 
-modules.exports= {recoverPasswordCtrl, resetCtrl, resetPasswordCtrl}
+module.exports= {recoverPasswordCtrl, resetCtrl, resetPasswordCtrl}
