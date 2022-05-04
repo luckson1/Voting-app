@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-// import { useDispatch , useSelector } from "react-redux";
+import { useDispatch , useSelector } from "react-redux";
 import { useFormik } from "formik";
-// import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import * as Yup from 'yup';
 import login from "../../Components/images/login.svg"
+import { registerUserAction } from "../../redux/slices/users/UserSlices";
 // import { loginUserAction } from "../../redux/slices/users/userSlices";
 // import DisabledButton from "../../components/disableButton";
 
@@ -15,45 +16,52 @@ const formSchema = Yup.object({
     firstname: Yup.string().required("firstname is required"),
     lastname: Yup.string().required("lastname is required"),
     company: Yup.string().required("company is required"),
+    companyTitle: Yup.string().required("companyTitle is required"),
     phoneNumber: Yup.string().required("phoneNumber is required"),
     image: Yup.string().required("image is required"),
 
 })
 
 const Register = () => {
-    // //history
-    // const navigate=useNavigate();
+    //history
+    const navigate=useNavigate();
 
 
     // dispatch
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
 
     // get data from store
 
-    // const user = useSelector((state) => {
-    //     return state?.users
-    // })
-    // const { userAppErr, userServerErr, userLoading, userAuth}=user;
+    const user = useSelector((state) => {
+        return state?.users
+    })
+    const { userAppErr, userServerErr, userLoading, isRegistered}=user;
     // //form formik
     const formik = useFormik({
         initialValues: {
             email: "",
             password: "",
+            firstname: "",
+            lastname: "",
+            company: "",
+            companyTitle: "",
+            phoneNumber: "",
+            image: ""
+
+
         },
         onSubmit: values => {
-            console.log(values)
+            dispatch(registerUserAction(values))
         },
 
         validationSchema: formSchema,
     });
-
-    // redirection
-    // useEffect(()=> {
-    // if (userAuth){
-    //     return navigate('/profile')
-    // }
-    // }, [userAuth])
+    useEffect(() => {
+        if (isRegistered) {
+          return navigate('/login')
+        }
+      }, [isRegistered, navigate])
 
     return (
         <section
@@ -78,12 +86,12 @@ const Register = () => {
                             <h3 className="fw-bold mb-2 text-center">Create your account</h3>
                             {/* Display Err */}
 
-                            {/* {userAppErr || userServerErr ? (
+                            {userAppErr || userServerErr ? (
                 <div className="alert alert-danger" role="alert">
                   {userServerErr} {userAppErr}
                 </div>
-              ) : null} */}
-                            <form onSubmit={formik.handleSubmit}>
+              ) : null}
+                            <form onSubmit={formik.handleSubmit} enctype="multipart/form-data">
                                 <input
                                     value={formik.values.firstname}
                                     onChange={formik.handleChange("firstname")}
@@ -125,7 +133,7 @@ const Register = () => {
                                     onChange={formik.handleChange("phoneNumber")}
                                     onBlur={formik.handleBlur("phoneNumber")}
                                     className="form-control mb-2"
-                                    type="number"
+                                    type="text"
                                     placeholder="phoneNumber"
                                 />
                                 {/* Err */}
@@ -143,17 +151,32 @@ const Register = () => {
                                 />
                                 {/* Err */}
                                 <div className="text-danger mb-2">
-                                    {formik.touched.company && formik.errors.company}
+                                    {formik.touched.companyTitle && formik.errors.companyTitle}
+                                </div>
+                                <input
+                                    value={formik.values.companyTitle}
+                                    onChange={formik.handleChange("companyTitle")}
+                                    onBlur={formik.handleBlur("companyTitle")}
+                                    className="form-control mb-2"
+                                    type="text"
+                                    placeholder="companyTitle"
+                                />
+                                {/* Err */}
+                                <div className="text-danger mb-2">
+                                    {formik.touched.companyTitle && formik.errors.companyTitle}
                                 </div>
                                 <div className="input-group mb-2">
                                     <label
                                         className="input-group-text"
                                         htmlFor="inputGroupFile02">
-                                        Profile Photo
+                                        image
                                     </label>
                                     <input
-                                        value={formik.values.image}
-                                        onChange={formik.handleChange("image")}
+                                    name="image"
+                                        value={undefined}
+                                        onChange={(e) =>
+                                            formik.setFieldValue('image', e.currentTarget.files[0])
+                                          }
                                         onBlur={formik.handleBlur("image")}
                                         className="form-control"
                                         type="file"
@@ -184,7 +207,7 @@ const Register = () => {
                                         type="submit"
                                         className="btn btn-primary py-2 w-100 mb-4"
                                     >
-                                        Login
+                                        Register
                                     </button>
                                 </div>
                                 <div id="emailHelp" className="form-text text-center mb-5 text-dark"><Link to="/recover" className="text-dark fw-bold"> Forgot Your Password?</Link>

@@ -1,7 +1,12 @@
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout } from "../redux/slices/users/UserSlices";
 
 
 export const  Sidebar= () => {
+    // create instance of dispatch
+    const dispatch = useDispatch()
+
     return (
 <div className="container-fluid">
     <div className="row">
@@ -39,9 +44,9 @@ export const  Sidebar= () => {
                         <i className="bi-person-circle h2"></i>
                     </Link>
                     <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
-                        <li><a className="dropdown-item" href="/logout">Logout</a></li>
+                        <li><button className="dropdown-item" onClick={()=> {dispatch(logout())}}>Logout</button></li>
                         <li><a className="dropdown-item" href="/update-password">Change Password</a></li>
-                        <li><a className="dropdown-item" href="/profile">Profile</a></li>
+                        <li><Link className="dropdown-item" to="/profile">Profile</Link></li>
                     </ul>
                 </div>
             </div>

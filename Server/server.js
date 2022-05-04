@@ -1,6 +1,7 @@
 const express=require('express')
 const app=express()
 const cors = require("cors");
+const fileupload= require("express-fileupload")
 
 const dotenv=require ('dotenv')
 const dbConnect = require('./dbConnect');
@@ -27,7 +28,9 @@ const PORT= 5000
 // middleware
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+// app.use(fileupload({useTempFiles: true}))
 
 
 //routes
@@ -45,13 +48,13 @@ app.use('/api/users', userRoutes)
 app.use('/api/votes', manualVotesRoute)
 
 //awards routes
-app.use('api/awards', awardsRoute)
+app.use('/api/awards', awardsRoute)
 
 //Category routes
-app.use('api/awardCategories', awardCategoryRoute)
+app.use('/api/awardCategories', awardCategoryRoute)
 
 //contestants routes
-app.use('api/contestants', contestantRoute)
+app.use('/api/contestants', contestantRoute)
 
 //errors
 

@@ -7,12 +7,12 @@ const authentication = require('../../middlewear/authentication');
 
 // req.file is the `image` file
   // req.body will hold the text fields, if there were any
-const upload = multer.single('image');
-userRoutes.get("/:id", authentication, fetchOneUserCtrl)
+// const upload = multer.single('image');
+userRoutes.get("/:_Id", authentication, fetchOneUserCtrl)
 userRoutes.get("/", authentication, fetchAllUsersCtrl)
-userRoutes.get("/profile/:id", authentication,userProfileCtrl)
+userRoutes.get("/profile", authentication,userProfileCtrl)
 userRoutes.post("/create", authentication, createUserctrl)
-userRoutes.put("/update-profile/:id", upload, updateUserctrl)
+userRoutes.put("/update-profile", updateUserctrl)
 
 module.exports = userRoutes
 

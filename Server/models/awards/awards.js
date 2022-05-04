@@ -16,15 +16,7 @@ const awardSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    companyTitle: {
-      //Admin will use this find awardcategories by company
-      type: String,
-      required: true,
-    },
-    companyUrlSlug: {
-      type: String,
-      required: true,
-    },
+    
     image: {
       type: String,
       required: true,

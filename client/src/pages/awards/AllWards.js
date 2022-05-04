@@ -1,6 +1,10 @@
-import  React, {useState} from 'react';
+import  React, {useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.min.css"
+import { useDispatch, useSelector } from 'react-redux';
+import { Awards } from '../../Components/Awards';
+import { fetchAwardsAction } from '../../redux/slices/awards/AwardsSlices';
+
 
 
 export const AllWards = () => {
@@ -8,6 +12,23 @@ export const AllWards = () => {
   const handleChange = (date) => setStartDate(date)
   const [endDate, setEndDate] = useState(new Date())
   const handleChange2 = (date) => setEndDate(date)
+
+//dispatch needed to get change state 
+const dispatch = useDispatch()
+
+//dispatch actions to fetch all awards
+useEffect(() => {dispatch(fetchAwardsAction())}, [dispatch])
+//get  state frin store 
+    const allawards = useSelector (state => state?.awards);
+
+  //obtain awards from state
+
+    const {awardCreated, awardLoading, awardAppErr, awardServerErr}= allawards
+    const awards=awardCreated?.awards
+    console.log(allawards)
+    
+
+
     return(
         
         <>
@@ -65,33 +86,17 @@ export const AllWards = () => {
 
       <div className='container-fluid my-5'>
         <div className='row'>
-          <div className='col'>
-            <div className="card" style={{ width: "18rem", border: "none" }}>
-              <img src="https://picsum.photos/300/300?random=1" className="card-img-top" alt="..." />
-              <div className="card-body">
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="/" className="btn btn-primary">Learn More</a>
-              </div>
-            </div>
-          </div>
-          <div className='col '>
-            <div className="card" style={{ width: "18rem", border: "none" }}>
-              <img src="https://picsum.photos/id/237/200/200" className="card-img-top" alt="..." />
-              <div className="card-body">
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="/" className="btn btn-primary">Learn More</a>
-              </div>
-            </div>
-          </div>
-          <div className='col '>
-            <div className="card" style={{ width: "18rem", border: "none" }}>
-              <img src="https://picsum.photos/300/300?grayscale" className="card-img-top" alt="..." />
-              <div className="card-body">
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="/" className="btn btn-primary">Learn More</a>
-              </div>
-            </div>
-          </div>
+        {awardLoading ? (
+                                        <h1>Loading</h1>
+                                    ) : awardServerErr || awardAppErr ? (
+                                        <div>Err</div>
+                                    ) : awards?.length<= 0 ? (
+                                        <h1>No awards Found</h1>
+                                    ) : (awards?.map(award => {
+                                        
+                                        return <Awards item={award} key={award?._id} />
+                                    }))}
+         
         </div>
       </div>
       <div className="mb-5 mt-2 text-center display-3">

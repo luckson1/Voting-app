@@ -14,7 +14,7 @@ const authentication=expressAsyncHandler(async (req, res, next) => {
          
           //find the user
           const user = await User.findById(decodedUser?.id);
-         
+        
           //attach the user the req obj
           req.user = user;
           

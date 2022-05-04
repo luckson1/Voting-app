@@ -1,8 +1,8 @@
 import React from 'react';
-import { AWards } from '../Components/Awards';
+import { Awards} from '../Components/Awards';
 import dashboard from '../Components/images/dashboard.png'
 import vote1 from '../Components/images/vote4.jpg'
-import { AllWards } from './awards/AllWards';
+
 
 
 
@@ -36,7 +36,7 @@ export const Home = () => {
         </div>
       </div>
       <div>
-        <AWards />
+        <Awards />
       </div>
       <div className="tex-center">
         <h1 className="display-3 text-success text-center fw-bold">How It Works</h1>

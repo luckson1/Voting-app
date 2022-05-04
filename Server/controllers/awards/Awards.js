@@ -1,5 +1,6 @@
 const Award = require("../../models/awards/awards");
 const expressAsyncHandler = require('express-async-handler');
+const cloudinary = require("../../utils/cloudinary");
 require('dotenv').config() 
 
 
@@ -7,12 +8,26 @@ require('dotenv').config()
 
 const createAwardCtrl= expressAsyncHandler(async (req, res) => {
     
-    const user= req?.user?._id
+    const filePath=req?.file?.path
+   const user=req?.user?._id
+    
     try {
-        const award= await Award.create({...req?.body, user})
-        res.json({award})
+        // Upload image to cloudinary
+        
+        const result = await cloudinary.uploader.upload(filePath) 
+      const award = await Award.create({
+        image: result?.secure_url,
+        user: user,
+        title: req?.body?.title,
+        description: req?.body?.description
+        
+      });
+      console.log(user)
+      res.json({award});
+      
+      
     } catch (error) {
-        res.json({error}) 
+      res.json({error});
     }
 });
 
@@ -44,7 +59,7 @@ const fetchOneAWardCtrl = expressAsyncHandler(async (req, res) => {
 // filter  awardsby dates
 
 const filterAwardCtrl= expressAsyncHandler(async (req, res) => {
-    const {start_date, end_date, id}=req.params
+    const {start_date, end_date, id}=req.body
 
     try {
         const award=await Award.find( 
@@ -67,6 +82,18 @@ const updateAwardctrl = expressAsyncHandler(async (req, res) => {
     }
 });
 
+// publish award 
+const publishAwardctrl = expressAsyncHandler(async (req, res) => {
+    const { id } = req.params
+        try {
+        const award = await Award.findByIdAndUpdate(id, {published:true}, { new: true })
+        res.json(award)
+    } catch (error) {
+
+        res.json(error)
+    }
+});
+
 //delete award
 
 const deleteAwardctrl = expressAsyncHandler(async (req, res) => {
@@ -80,4 +107,4 @@ const deleteAwardctrl = expressAsyncHandler(async (req, res) => {
     }
 });
 
-module.exports ={createAwardCtrl, fetchOneAWardCtrl, fetchAllAwardsCtrl, updateAwardctrl, deleteAwardctrl, filterAwardCtrl}
+module.exports ={publishAwardctrl, createAwardCtrl, fetchOneAWardCtrl, fetchAllAwardsCtrl, updateAwardctrl, deleteAwardctrl, filterAwardCtrl}

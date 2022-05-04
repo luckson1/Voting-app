@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-// import { useDispatch , useSelector } from "react-redux";
+import { useDispatch , useSelector } from "react-redux";
 import { useFormik } from "formik";
-// import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import * as Yup from 'yup';
 import login from "../../Components/images/login.svg"
-// import { loginUserAction } from "../../redux/slices/users/userSlices";
+import { loginUserAction } from "../../redux/slices/users/UserSlices";
+
 // import DisabledButton from "../../components/disableButton";
 
 // validation
@@ -16,19 +17,19 @@ const formSchema = Yup.object({
 
 const Login = () => {
     // //history
-    // const navigate=useNavigate();
+    const navigate=useNavigate();
 
 
     // dispatch
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
 
     // get data from store
 
-    // const user = useSelector((state) => {
-    //     return state?.users
-    // })
-    // const { userAppErr, userServerErr, userLoading, userAuth}=user;
+    const user = useSelector((state) => {
+        return state?.users
+    })
+    const { userAppErr, userServerErr, userLoading, userAuth}=user;
     // //form formik
     const formik = useFormik({
         initialValues: {
@@ -36,18 +37,18 @@ const Login = () => {
             password: "",
         },
         onSubmit: values => {
-            console.log(values)
+            dispatch(loginUserAction(values))
         },
 
         validationSchema: formSchema,
     });
 
     // redirection
-    // useEffect(()=> {
-    // if (userAuth){
-    //     return navigate('/profile')
-    // }
-    // }, [userAuth])
+    useEffect(()=> {
+    if (userAuth){
+        return navigate('/dashboard')
+    }
+    }, [userAuth, navigate])
 
     return (
         <section
@@ -69,11 +70,11 @@ const Login = () => {
                             <h3 className="fw-bold mb-5 text-center">Login to your account</h3>
                             {/* Display Err */}
 
-                            {/* {userAppErr || userServerErr ? (
+                            {userAppErr || userServerErr ? (
                 <div className="alert alert-danger" role="alert">
                   {userServerErr} {userAppErr}
                 </div>
-              ) : null} */}
+              ) : null}
                             <form onSubmit={formik.handleSubmit}>
                                 <input
                                     value={formik.values.email}

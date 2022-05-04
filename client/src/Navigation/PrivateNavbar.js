@@ -1,71 +1,118 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import star from "../Components/images/logo.svg"
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/slices/users/UserSlices";
 
 
-export const PrivateNavbar = () => {
-    return (
+const PrivateNavbar = () => {
 
-        <nav className="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
+    // create instance of  useDispatch 
+    const dispatch = useDispatch()
+
+   
+       return (
+
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            {/* <Container wrapper > */}
             <div className="container-fluid">
-                <div className="row">
-                    <div className="col-2">
+                {/* Toggle button  */}
+
+                <button className="navbar-toggler bg-primary btn-primary"
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse"
+                    aria-controls=".navbar-collapse"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <i className="fas fa-bars"></i>
+                </button>
+
+                {/* collapsible wrapper */}
+
+                <div className="collapse navbar-collapse" id=".navbar-collapse">
+                    {/* Navbar brand */}
+                    <li className="nav-item mb-2">
+
+
                         <Link to="/" className="navbar-brand">
 
-                            <img src={star} alt="star" width="30" height="24" />
+                            <img src={star} alt="star" width="30" height="24" loading="lazy" />
 
                         </Link>
-                    </div>
-                    <div className="col-6">
-                        <button className="navbar-toggler bg-primary btn-primary"
-                            type="button" data-bs-toggle="collapse"
-                            data-bs-target=".navbar-collapse"
-                            aria-controls=".navbar-collapse"
+                    </li>
+
+                    {/* Left Links */}
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+                        <li className="nav-item mb-2">
+                            <Link to="/" className=" nav-link">
+                                Home
+                            </Link>
+                        </li>
+
+                        <li className="nav-item mb-2">
+                            <Link to="/dashboard" className=" nav-link active ">
+                                Dashboard
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
+                {/* Right elements */}
+                <div className="d-flex align-items-center ">
+                   
+                        <Link to="/add-award" className=" nav-link nav-item mb-2 btn btn-warning me-2">
+                            +Awards
+                        </Link>
+                 
+
+                    <div className="dropdown">
+                        <a
+                            className="dropdown-toggle d-flex align-items-center hidden-arrow"
+                            href="/"
+                            id="navbarDropdownMenuAvatar"
+                            role="button"
+                            data-mdb-toggle="dropdown"
                             aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <i className="fas fa-bars"></i>
-                        </button>
-                        <div className="collapse navbar-collapse" id=".navbar-collapse">
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li className="nav-item mb-2">
-                                    <Link to="/" className="btn  btn-outline-warning me-2 nav-link active">
-                                        Home
-                                    </Link>
-                                </li>
-                                <li className="nav-item mb-2">
-                                    <Link to="/awards" className="btn  btn-outline-warning me-2 nav-link active">
-                                        Awards
-                                    </Link>
-                                </li>
-                                <li className="nav-item mb-2">
-                                    <Link to="/about" className="btn  btn-outline-warning me-2 nav-link active">
-                                        About
-                                    </Link>
-                                </li>
-                               
-                                    <div className="d-flex ">
-                                        <li className=" nav-item mb-2  ">
-                                            <Link to="/add-award" className="btn  btn-outline-warning me-2 nav-link active">
-                                                +Awards
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item mb-2">
-                                            <Link className="text-dark btn btn-primary me-2 nav-link active" to="/login" >
-                                                Login
-                                            </Link>
-                                        </li>
-
-                                    </div>
-                                
-                            </ul>
-                        </div>
-
+                        >
+                            <img
+                                src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                                className="rounded-circle"
+                                height="25"
+                                alt="Black and White Portrait of a Man"
+                                loading="lazy"
+                            />
+                        </a>
+                        <ul
+                            className="dropdown-menu dropdown-menu-end"
+                            aria-labelledby="navbarDropdownMenuAvatar"
+                        >
+                            <li>
+                                <Link className="dropdown-item" to="/profile">My profile</Link>
+                            </li>
+                            <li>
+                                <Link className="dropdown-item" to="/settings">Settings</Link>
+                            </li>
+                            <li>
+                                <button className="dropdown-item" onClick={()=> { dispatch(logout())}} >Logout</button>
+                            </li>
+                        </ul>
                     </div>
 
                 </div>
+
+
+
+
+
+
+
             </div>
         </nav>
     );
 };
+
+
+export default PrivateNavbar;

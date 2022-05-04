@@ -1,7 +1,7 @@
 const expressAsyncHandler = require('express-async-handler');
 const User = require('../../models/users/user');
 const { sendEmail } = require('../../utils/sendEmail');
-const cloudinary = require('../../utils/Uploader');
+const cloudinary = require('../../utils/cloudinary');
 
 
 
@@ -20,9 +20,11 @@ const fetchAllUsersCtrl = expressAsyncHandler(async (req, res) => {
 // fetch user profile
 
 const userProfileCtrl = expressAsyncHandler(async (req, res) => {
-    const id = req?.params
+    const id=req?.user?._Id
+    console.log(id)
     try {
-        const profile = await User.findById(req?.user?._id)
+        
+        const profile = await User.findById(id).populate(['awards'])
 
         res.json(profile);
     } catch (error) {
@@ -77,46 +79,35 @@ const createUserctrl = expressAsyncHandler(async (req, res) => {
 
 // fetch a single user
 const fetchOneUserCtrl = expressAsyncHandler(async (req, res) => {
-    const id = req.params.id;
-    try {
+    const id=req?.user?._id
+  try {
+    const profile = await User.findById(req?.user?._id)
 
-        const user = await User.findById(id);
-        // check if user exist
-
-        if (!user) return res.status(401).json({ message: 'User does not exist' });
-
-        res.status(200).json({ user });
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-    }
+    res.json({profile});
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 // update user details
 
 const updateUserctrl = expressAsyncHandler(async (req, res) => {
-    const update = req?.body;
-    const id = req?.params.id;
-    const _Id = req?.user?._id;
+    
     try {
-        //Make sure the passed id is that of the logged in user
-        if (_Id.toString() !== id.toString()) return res.status(401).json({ message: "Sorry, you don't have the permission to upd this data." });
-
-        const user = await User.findByIdAndUpdate(id, { $set: update }, { new: true });
-
-        //if there is no image, return success message
-        if (!req.file) return res.status(200).json({ user, message: 'User has been updated' });
-
-        // //Attempt to upload to cloudinary
-        // const result = await uploader(req);
-        // const user_ = await User.findByIdAndUpdate(id, { $set: update }, { $set: { image: result?.url } }, { new: true });
-
-        if (!req.file) return res.status(200).json({ user: user_, message: 'User has been updated' });
+       console.log(req?.user)
+        const profile= await User.findByIdAndUpdate(req?.user?._id, 
+            {firstname: req?.body?.firstname,
+                lastname: req?.body?.lastname,
+                companyTitle: req?.body?.companyTitle}, {new:true,
+            runValidators: true})
+            console.log(profile)
+          res.json ({profile})
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 })
 
-module.exports = {fetchOneUserCtrl, fetchAllUsersCtrl, userProfileCtrl, createUserctrl, updateUserctrl,  }
+module.exports = { fetchOneUserCtrl, fetchAllUsersCtrl, userProfileCtrl, createUserctrl, updateUserctrl,  }
 
 
 

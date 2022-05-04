@@ -1,52 +1,57 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 // import { useDispatch , useSelector } from "react-redux";
 import { useFormik } from "formik";
 // import {useNavigate} from 'react-router-dom'
 import * as Yup from 'yup';
 import login from "../../Components/images/login.svg"
+import { useDispatch, useSelector } from "react-redux";
+import { updateProfileAction } from "../../redux/slices/users/UserSlices";
 // import { loginUserAction } from "../../redux/slices/users/userSlices";
 // import DisabledButton from "../../components/disableButton";
 
 // validation
 const formSchema = Yup.object({
     email: Yup.string().required("Email is required"),
-        firstname: Yup.string().required("firstname is required"),
+    firstname: Yup.string().required("firstname is required"),
     lastname: Yup.string().required("lastname is required"),
     company: Yup.string().required("company is required"),
+    companyTitle: Yup.string().required("companyTitle is required"),
     phoneNumber: Yup.string().required("phoneNumber is required"),
     image: Yup.string().required("image is required"),
 
 })
 
 const UpdateProfile = () => {
-    // //history
-    // const navigate=useNavigate();
+    // //history and navigation
+    const navigate =useNavigate();
 
 
-    // dispatch
-    // const dispatch = useDispatch()
+    // dispatch instance 
+    const dispatch = useDispatch()
 
 
-    // get data from store
+    
+    
+//get location data
+    const location=useLocation()
+    const user=location?.state
+    console.log(user)
 
-    // const user = useSelector((state) => {
-    //     return state?.users
-    // })
-    // const { userAppErr, userServerErr, userLoading, userAuth}=user;
-    // //form formik
+    //formik t handle our form inputs and operations 
     const formik = useFormik({
         initialValues: {
-            email: "",
-            firstname: "",
-            lastname : "",
-            company : "",
-            phoneNumber: "",
-            image: ""
+            email: user?.email,
+            firstname: user?.firstname,
+            lastname : user?.lastname,
+            company : user?.company,
+            companyTitle : user?.companyTitle,
+            phoneNumber: user?.phoneNumber,
+            image: user?.image,
     
         },
         onSubmit: values => {
-            console.log(values)
+            dispatch(updateProfileAction(values))
         },
 
         validationSchema: formSchema,
@@ -58,6 +63,14 @@ const UpdateProfile = () => {
     //     return navigate('/profile')
     // }
     // }, [userAuth])
+    // get state from store
+    const updatedProfile= useSelector ((state) => {return state?.users})
+    const{ isProfileUpdated}=updatedProfile
+    
+    // redirection
+    useEffect (() => {
+        if (isProfileUpdated) navigate("/profile")
+    }, [isProfileUpdated, dispatch, navigate])
 
     return (
         <section
@@ -129,7 +142,7 @@ const UpdateProfile = () => {
                                     onChange={formik.handleChange("phoneNumber")}
                                     onBlur={formik.handleBlur("phoneNumber")}
                                     className="form-control mb-2"
-                                    type="number"
+                                    type="string"
                                     placeholder="phoneNumber"
                                 />
                                 {/* Err */}
@@ -149,28 +162,19 @@ const UpdateProfile = () => {
                                 <div className="text-danger mb-2">
                                     {formik.touched.company && formik.errors.company}
                                 </div>
-                                <div className="input-group mb-2">
-                                    <label
-                                        className="input-group-text"
-                                        htmlFor="inputGroupFile02">
-                                        Profile Photo
-                                    </label>
-                                    <input
-                                        value={formik.values.image}
-                                        onChange={formik.handleChange("image")}
-                                        onBlur={formik.handleBlur("image")}
-                                        className="form-control"
-                                        type="file"
-                                        placeholder="Profile Image"
-                                        id="inputGroupFile02"
-                                    />
-                                </div>
-
+                                <input
+                                    value={formik.values.companyTitle}
+                                    onChange={formik.handleChange("companyTitle")}
+                                    onBlur={formik.handleBlur("companyTitle")}
+                                    className="form-control mb-2"
+                                    type="text"
+                                    placeholder="companyTitle"
+                                />
                                 {/* Err */}
                                 <div className="text-danger mb-2">
-                                    {formik.touched.image && formik.errors.image}
+                                    {formik.touched.companyTitle && formik.errors.companyTitle}
                                 </div>
-                               
+                                                        
 
                                 <div>
                                     <button

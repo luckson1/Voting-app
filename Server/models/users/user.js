@@ -23,15 +23,15 @@ const userSchema = new mongoose.Schema(
     },
     companyTitle: {
       type: String,
-      required: false,
+      required: true,
     },
-    companyUrlSlug: {
+    company: {
       type: String,
-      required: false,
+      required: true,
     },
     phoneNumber: {
       type: String,
-      required: false,
+      required: true,
     },
     password: {
       type: String,
@@ -90,11 +90,19 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-//match password
-userSchema.methods.isPasswordMatched = async function (enteredPassword) {
-  return bcrypt.compare(enteredPassword, this.password);
+// check password matching
+//Verify password
+userSchema.methods.isPasswordMatch = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
 };
 
 //create the model for users and expose it to our app
+
+// /populate virtuals
+userSchema.virtual("awards", {
+  ref: "Award",
+  localField: "_id",
+  foreignField: "user",
+});
 const User = mongoose.model("User", userSchema);
 module.exports = User;

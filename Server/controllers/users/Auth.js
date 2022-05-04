@@ -3,7 +3,7 @@ require('dotenv').config()
 const generateToken = require('../../middlewear/generateTokens');
 const User = require('../../models/users/user');
 const nodemailer = require('nodemailer');
-const cloudinary = require('../../utils/Uploader');
+const cloudinary = require('../../utils/cloudinary');
 
 
 
@@ -38,20 +38,22 @@ const cloudinary = require('../../utils/Uploader');
 
 const registerUserCtrl = expressAsyncHandler(async (req, res) => {
     const { email } = req?.body
+    const filePath=req?.file?.path
+
     //find if a user exists
-
+    
     const userExists = await User.findOne({ email });
-    if (userExists)  throw new Error('User already exists') 
+    if (userExists) throw new Error('User already exists')
 
-   
+
     try {
-        
-           // Upload image to cloudinary
-    const result = await cloudinary.uploader.upload(req?.file?.path);
+                
+        // Upload image to cloudinary
+        const result = await cloudinary.uploader.upload(filePath)
 
         // if new, create one
-        const user = await User.create({ image: result?.secure_url, ...req.body, })
-        // user.save()
+        const user = await User.create({ image: result.secure_url, ...req.body })
+       
 
 
 
@@ -60,8 +62,8 @@ const registerUserCtrl = expressAsyncHandler(async (req, res) => {
         // const token = await user.createAccountVerificationToken();
         // // res.send("An Email sent to your account please verify");
         // return user
-        res.json({user})
-        
+        res.json({ user })
+
 
     } catch (error) {
         res.json({ error })
@@ -123,31 +125,20 @@ const resendEmailVerificationCtrl = expressAsyncHandler(async (req, res) => {
 
 // login user
 const loginUserCtrl = expressAsyncHandler(async (req, res) => {
-    const { email, password } = req?.body
-    try {
-        // check if user exists
-
-        const user = await User.findOne({ email });
-
-        if (!user) return res.status(401).json({ msg: 'The email address ' + email + ' is not associated with any account. Double-check your email address and try again.' });
-
-        //validate password
-        if (!user.isPasswordMatched(password)) return res.status(401).json({ message: 'Invalid email or password' });
-
-        // Make sure the user has been verified
-        if (!user.isVerified) return res.status(401).json({ type: 'not-verified', message: 'Your account has not been verified.' });
-
-        // Login successful, write token, and send back user
-        res.status(200).json({
-            token: generateToken(user), user: user
-        });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+    const { email, password } = req.body;
+    //check if user exists
+    const userFound = await User.findOne({ email });
+    //Check if password is match
+    if (userFound && (await userFound?.isPasswordMatch (password))) {
+      res.json({
+       
+        token: generateToken(userFound?._id), userFound
+      });
+    } else {
+      res.status(401);
+      throw new Error("Invalid Login Credentials");
     }
-
-
-
-});
+  });
 
 module.exports = { registerUserCtrl, loginUserCtrl, emailVerificationCtrl, resendEmailVerificationCtrl }
 
