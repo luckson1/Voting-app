@@ -25,7 +25,7 @@ useEffect(() => {dispatch(fetchAwardsAction())}, [dispatch])
 
     const {awardCreated, awardLoading, awardAppErr, awardServerErr}= allawards
     const awards=awardCreated?.awards
-    console.log(allawards)
+   
     
 
 
@@ -33,7 +33,7 @@ useEffect(() => {dispatch(fetchAwardsAction())}, [dispatch])
         
         <>
         
-      <div className='container-fluid  bg-info-gradient'>
+      <div className='container-fluid  bg-light'>
         <div className='row'>
           <div className='col  justify-content-center'>
             <h1 className="display-2 text-center text-primary fw-bold">Latest Awards</h1>
@@ -70,10 +70,11 @@ useEffect(() => {dispatch(fetchAwardsAction())}, [dispatch])
           </div>
           <div className="col-4">
             <div className="dropdown">
-              <button className="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <label htmlFor="dropdown" className="form-label fw-bold text-secondary"> Select Category</label>
+              <button className="btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Filter by Award Category
               </button>
-              <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <div className="dropdown-menu" aria-labelledby="dropdownMenu2" id="dropdown"> 
                 <button className="dropdown-item" type="button">Action</button>
                 <button className="dropdown-item" type="button">Another action</button>
                 <button className="dropdown-item" type="button">Something else here</button>
@@ -94,7 +95,7 @@ useEffect(() => {dispatch(fetchAwardsAction())}, [dispatch])
                                         <h1>No awards Found</h1>
                                     ) : (awards?.map(award => {
                                         
-                                        return <Awards item={award} key={award?._id} />
+                                        return <Awards award={award} key={award?.categories?._id }/>
                                     }))}
          
         </div>

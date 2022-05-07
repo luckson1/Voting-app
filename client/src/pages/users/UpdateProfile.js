@@ -36,7 +36,7 @@ const UpdateProfile = () => {
 //get location data
     const location=useLocation()
     const user=location?.state
-    console.log(user)
+    
 
     //formik t handle our form inputs and operations 
     const formik = useFormik({
@@ -47,7 +47,7 @@ const UpdateProfile = () => {
             company : user?.company,
             companyTitle : user?.companyTitle,
             phoneNumber: user?.phoneNumber,
-            image: user?.image,
+            
     
         },
         onSubmit: values => {
@@ -57,16 +57,11 @@ const UpdateProfile = () => {
         validationSchema: formSchema,
     });
 
-    // redirection
-    // useEffect(()=> {
-    // if (userAuth){
-    //     return navigate('/profile')
-    // }
-    // }, [userAuth])
+
     // get state from store
     const updatedProfile= useSelector ((state) => {return state?.users})
     const{ isProfileUpdated}=updatedProfile
-    
+    console.log(updatedProfile)
     // redirection
     useEffect (() => {
         if (isProfileUpdated) navigate("/profile")

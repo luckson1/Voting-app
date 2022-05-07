@@ -4,7 +4,7 @@ const {createAwardCategoryCtrl, fetchOneAwardCategoryCtrl, fetchAllAwardCategory
 
 const awardCategoryRoute=express.Router()
 
-awardCategoryRoute.post("/create", createAwardCategoryCtrl);
+awardCategoryRoute.post("/", createAwardCategoryCtrl);
 awardCategoryRoute.get("/:id", fetchOneAwardCategoryCtrl);
 awardCategoryRoute.get("/", fetchAllAwardCategory);
 awardCategoryRoute.put("/:id", updateAwardCategoryctrl);

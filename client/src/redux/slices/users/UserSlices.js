@@ -108,30 +108,30 @@ export const fetchUserProfileAction = createAsyncThunk('user/profile', async (pa
 );
 
 //update profile state
-export const updateProfileAction = createAsyncThunk( "update/profile",
- async(payload, { rejectWithValue, getState, dispatch })=> {
- //get user token from store
- const userToken = getState()?.users?.userAuth?.token;
-
- const config = {
-     headers: {
-         "Content-Type": "application/json",
-         Authorization: `Bearer ${userToken}`,
-     },
-
- };
+export const updateProfileAction = createAsyncThunk('user/update', async (payload, { rejectWithValue, getState, dispatch }) => {
+    const userToken = getState()?.users?.userAuth?.token;
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userToken}`,
+        },
+    };
 
     try {
-    const {data}= await axios.put(`${BaseURL}/users/update-profile`, payload, config)
-    dispatch(resetProfileUpdated())
-    return data
-} catch (error) {
-    if (!error?.response) {
-        throw error;
+        //http call
+        const { data } = await axios.get(
+            `${BaseURL}/users/profile`, payload, config);
+          dispatch(resetProfileUpdated) 
+        return data;
+
+    } catch (error) {
+        if (!error?.response) {
+            throw error;
+        }
+        return rejectWithValue(error?.response?.data);
     }
-    return rejectWithValue(error?.response?.data);
 }
-});
+);
 
 //slices
 const userLoginFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : undefined;
@@ -224,9 +224,9 @@ const usersSlices = createSlice({
         // slices to handle change of profile info
            // handle pending state
            builder.addCase(updateProfileAction.pending, (state, action) => {
-            state.profileLoading = true;
-            state.profileAppErr = undefined;
-            state.profileServerErr = undefined;
+            state.updateProfileLoading = true;
+            state.updateProfileAppErr = undefined;
+            state.updateProfileServerErr = undefined;
         });
         builder.addCase(resetProfileUpdated, (state, action) => {
             state.isProfileUpdated = true
@@ -235,18 +235,18 @@ const usersSlices = createSlice({
         //hande success state
         builder.addCase(updateProfileAction.fulfilled, (state, action) => {
             state.newProfile = action?.payload;
-            state.profileLoading = false;
-            state.profileAppErr = undefined;
-            state.profileServerErr = undefined;
+            state.updateProfileLoading = false;
+            state.updateProfileAppErr = undefined;
+            state.updateProfileServerErr = undefined;
             state.isProfileUpdated = false
         });
         //hande rejected state
 
         builder.addCase(updateProfileAction.rejected, (state, action) => {
 
-            state.profileLoading = false;
-            state.profileAppErr = action?.payload?.msg;
-            state.profileServerErr = action?.error?.msg;
+            state.updateProfileLoading = false;
+            state.updateProfileAppErr = action?.payload?.msg;
+            state.updateProfileServerErr = action?.error?.msg;
         });
 
 

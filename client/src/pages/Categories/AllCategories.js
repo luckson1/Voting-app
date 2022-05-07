@@ -1,77 +1,30 @@
-import React from 'react';
+// import React, { useEffect } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { Categories } from '../../Components/Categories';
+// import { fetchAwardsAction } from '../../redux/slices/awards/AwardsSlices';
 export const AllCategories = () => {
+const location=useLocation()
+const award=location?.state
+const image=award?.image
+console.log(award?.categories)
+//get dispatch
+// const dispatch = useDispatch()
+
+//dispatch action to fetch all categories 
+
+// useEffect(() => {dispatch(fetchAwardsAction())}, [dispatch])
+
+
+//grab state from store using useSelector 
+
+
+
     return (
-        <>
-
-            <div className='container-fluid my-5 bg-info-gradient'>
-                <div className='row'>
-                    <div className='col  justify-content-center'>
-                        <h1 className="display-2 text-center text-primary fw-bold">Awards Categories Created </h1>
-
-
-                    </div>
-
-                </div>
-            </div>
-
-            <div className='container-fluid my-5'>
-                <div className='row'>
-                    <div className='col'>
-                        <div className="card" style={{ width: "18rem" }}>
-                            <img src="https://picsum.photos/300/300?grayscale" className="card-img-top" alt="..." />
-                            <div className="card-body">
-                                <h5 className="card-title">Card title</h5>
-                                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                            <ul className="list-group list-group-flush">
-                                <li className="list-group-item">An item</li>
-                                <li className="list-group-item">A second item</li>
-                                <li className="list-group-item">A third item</li>
-                            </ul>
-                            <div className="card-body">
-                                <a href="/" className="card-link">Card link</a>
-                                <a href="/" className="card-link">Another link</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='col'>
-                        <div className="card" style={{ width: "18rem" }}>
-                            <img src="https://picsum.photos/300/300?grayscale" className="card-img-top" alt="..." />
-                            <div className="card-body">
-                                <h5 className="card-title">Card title</h5>
-                                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                            <ul className="list-group list-group-flush">
-                                <li className="list-group-item">An item</li>
-                                <li className="list-group-item">A second item</li>
-                                <li className="list-group-item">A third item</li>
-                            </ul>
-                            <div className="card-body">
-                                <a href="/" className="card-link">Card link</a>
-                                <a href="/" className="card-link">Another link</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='col'>
-                        <div className="card" style={{ width: "18rem" }}>
-                            <img src="https://picsum.photos/300/300?grayscale" className="card-img-top" alt="..." />
-                            <div className="card-body">
-                                <h5 className="card-title">Card title</h5>
-                                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                            <ul className="list-group list-group-flush">
-                                <li className="list-group-item">An item</li>
-                                <li className="list-group-item">A second item</li>
-                                <li className="list-group-item">A third item</li>
-                            </ul>
-                            <div className="card-body">
-                                <a href="/" className="card-link">Card link</a>
-                                <a href="/" className="card-link">Another link</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </>);
+       <>
+    {award?.categories.length<= 0 ? (<h1>No Categories Found</h1>) : (award?.categories.map(category => {
+                                        
+                                        return <Categories categories={category} key={category?._id} image={image}/>
+                                    }))}
+       </>);
 };

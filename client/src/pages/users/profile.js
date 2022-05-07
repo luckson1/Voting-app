@@ -30,7 +30,7 @@ const image= profile?.image
           <div className="row g-0">
             <div className=" col-6 col-md-8 gradient-custom text-center text-primary">
               
-              <img src= {{image}}
+              <img src= {image}
                 alt="Avatar" className="img-fluid my-5" style={{width: "200px"}} />
               <span><p>{profile?.firstname}</p><p>{profile?.lastname}</p></span>
               <p>{profile?.companyTitle}</p>

@@ -80,6 +80,7 @@ const createUserctrl = expressAsyncHandler(async (req, res) => {
 // fetch a single user
 const fetchOneUserCtrl = expressAsyncHandler(async (req, res) => {
     const id=req?.user?._id
+
   try {
     const profile = await User.findById(req?.user?._id)
 
@@ -92,15 +93,16 @@ const fetchOneUserCtrl = expressAsyncHandler(async (req, res) => {
 // update user details
 
 const updateUserctrl = expressAsyncHandler(async (req, res) => {
-    
+    const  id=req?.user?._id
+    console.log(req)
     try {
-       console.log(req?.user)
-        const profile= await User.findByIdAndUpdate(req?.user?._id, 
+       
+        const profile= await User.findByIdAndUpdate(id, 
             {firstname: req?.body?.firstname,
                 lastname: req?.body?.lastname,
                 companyTitle: req?.body?.companyTitle}, {new:true,
             runValidators: true})
-            console.log(profile)
+            
           res.json ({profile})
     } catch (error) {
         res.status(500).json({ message: error.message });

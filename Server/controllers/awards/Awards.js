@@ -10,7 +10,7 @@ const createAwardCtrl= expressAsyncHandler(async (req, res) => {
     
     const filePath=req?.file?.path
    const user=req?.user?._id
-    
+    console.log(req)
     try {
         // Upload image to cloudinary
         
@@ -22,7 +22,7 @@ const createAwardCtrl= expressAsyncHandler(async (req, res) => {
         description: req?.body?.description
         
       });
-      console.log(user)
+      
       res.json({award});
       
       
@@ -35,7 +35,7 @@ const createAwardCtrl= expressAsyncHandler(async (req, res) => {
 
 const fetchAllAwardsCtrl= expressAsyncHandler(async (req, res) => {
     try {
-        const awards=await Award.find({})
+        const awards=await Award.find({}).populate("categories")
         res.json({awards})
     } catch (error) {
         res.json({error}) 
@@ -84,9 +84,24 @@ const updateAwardctrl = expressAsyncHandler(async (req, res) => {
 
 // publish award 
 const publishAwardctrl = expressAsyncHandler(async (req, res) => {
-    const { id } = req.params
-        try {
+    const { id } = req?.params
+    console.log(req?.body)
+            try {
         const award = await Award.findByIdAndUpdate(id, {published:true}, { new: true })
+       console.log()
+        res.json(award)
+    } catch (error) {
+
+        res.json(error)
+    }
+});
+// close award 
+const closeAwardctrl = expressAsyncHandler(async (req, res) => {
+    const { id } = req?.params
+    
+            try {
+        const award = await Award.findByIdAndUpdate(id, {hasExpired:true}, { new: true })
+       
         res.json(award)
     } catch (error) {
 
@@ -107,4 +122,4 @@ const deleteAwardctrl = expressAsyncHandler(async (req, res) => {
     }
 });
 
-module.exports ={publishAwardctrl, createAwardCtrl, fetchOneAWardCtrl, fetchAllAwardsCtrl, updateAwardctrl, deleteAwardctrl, filterAwardCtrl}
+module.exports ={publishAwardctrl, closeAwardctrl,createAwardCtrl, fetchOneAWardCtrl, fetchAllAwardsCtrl, updateAwardctrl, deleteAwardctrl, filterAwardCtrl}

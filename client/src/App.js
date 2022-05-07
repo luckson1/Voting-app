@@ -59,7 +59,10 @@ function App() {
           <Route exact path="/all-awards" element={<Layout1>
             <AllWards />
           </Layout1>} />
-          <Route exact path="/all-categories" element={<Layout1>
+          <Route exact path="/add-category" element={<Layout1>
+            <AddCategory />
+          </Layout1>} />
+          <Route exact path="/categories" element={<Layout1>
             <AllCategories />
           </Layout1>} />
           <Route exact path="/contestants" element={<Layout1>

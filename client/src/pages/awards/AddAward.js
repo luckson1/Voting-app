@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import {createAwardAction} from "../../redux/slices/awards/AwardsSlices";
 
 
-// validation
+// form validation using yup
 const formSchema = Yup.object({
     title: Yup.string().required("title is required"),
     description: Yup.string().required("description is required"),
@@ -21,7 +21,7 @@ export const AddAward = () => {
     const dispatch = useDispatch()
 
 
-
+//use formik to handle form operations 
     const formik = useFormik({
         initialValues: {
             title: "",

@@ -13,27 +13,19 @@ const awardCategorySchema = new Schema(
       ref: "User",
       required: true,
     },
-    start_date: {
+    startDate: {
       type: Date,
       required: true,
     },
-    end_date: {
+    endDate: {
       type: Date,
       required: true,
     },
 
-    companyTitle: {
-      //Admin will use this find awardcategories by company
-      type: String,
-      required: true,
-    },
+    
     mainAward: {
       type: Schema.Types.ObjectId,
       ref: "Award",
-      required: true,
-    },
-    costPerVote: {
-      type: Number,
       required: true,
     },
     contestantsRegistered: [
@@ -67,7 +59,7 @@ const awardCategorySchema = new Schema(
     optForNotification: {
       type: String,
       required: true,
-      enum: ["Text Message", "Email Message", "Never Mind"],
+      enum: ["Text", "Email", "None"],
     },
 
     showResults: {

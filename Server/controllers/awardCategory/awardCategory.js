@@ -8,8 +8,10 @@ require('dotenv').config()
 const createAwardCategoryCtrl= expressAsyncHandler(async (req, res) => {
     
     const user= req?.user?._id
+    console.log(req)
     try {
-        const awardCategory= await AwardCategory.create({...req?.body, user})
+        const awardCategory= await AwardCategory.create({...req?.body})
+   
         res.json({awardCategory})
     } catch (error) {
         res.json({error}) 

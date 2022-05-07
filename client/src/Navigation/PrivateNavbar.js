@@ -63,7 +63,7 @@ const PrivateNavbar = () => {
                 {/* Right elements */}
                 <div className="d-flex align-items-center ">
                    
-                        <Link to="/add-award" className=" nav-link nav-item mb-2 btn btn-warning me-2">
+                        <Link to="/add-award" className=" nav-link nav-item mb-2  btn-warning me-2">
                             +Awards
                         </Link>
                  
