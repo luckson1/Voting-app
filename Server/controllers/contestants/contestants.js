@@ -1,16 +1,18 @@
 const expressAsyncHandler=require('express-async-handler');
 const Contestants = require('../../models/contestants/Contenstants');
+const cloudinary = require('../../utils/cloudinary');
 
 
 //contestant apply 
 const registerContestant = expressAsyncHandler(async (req, res) => {
-  const { email } = req?.body;
-
-  //check if contestant exists
-  const contestantExists = await Contestants.findOne({ email });
-  if (contestantExists) throw new Error("contestant already exists");
+   console.log(req?.file)
+   const filePath=req?.file?.path
+  
   try {
-    const contestant = await Contestants.create({ ...req?.body });
+    // Upload image to cloudinary
+    const result = await cloudinary.uploader.upload(filePath)
+
+    const contestant = await Contestants.create({  image: result.secure_url,...req?.body });
     res.json({contestant});
   } catch (error) {
     res.json(error);

@@ -43,14 +43,6 @@ const contestantsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    quotes: {
-      type: String,
-      required: true,
-    },
-    socialMediaLink: {
-      type: String,
-      required: true,
-    },
 
     status: {
       type: String,

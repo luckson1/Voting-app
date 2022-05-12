@@ -2,15 +2,16 @@ import React from 'react';
 import { Sidebar } from './SideBar';
 export const Layout1 = ({ children }) => {
   return (
-    <div className="container">
-      <div className="row">
-        <div className=" col-2 sm-4" style= {{width: '9rem'}}>
+    
+   
+      <div className="row  mx-3 px-3">
+        <div className=" col-2 bg-dark " >
           <Sidebar />
         </div>
-        <div className="col-10 sm-8">
+        <div className="col-10 col-lg ">
           {children}
         </div>
       </div>
-    </div>
+   
   );
 };

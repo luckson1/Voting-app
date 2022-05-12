@@ -2,10 +2,12 @@ import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit"
 import axios from 'axios'
 import { BaseURL } from "../../../utils/BaseUrl";
 
-// actions for redirect 
+// actions for redirect after action is completed
 export const resetawardCategoryCreated = createAction("awardCategory/created/reset")
-// export const resetawardCategoryUpdated = createAction("awardCategory/updated/reset")
-//create awardCategory action
+export const resetawardCategoryUpdated = createAction("awardCategory/updated/reset")
+export const resetawardCategoryPublished = createAction("awardCategory/publish/reset")
+export const resetawardCategoryDeleted = createAction("award/Deleted/reset")
+// create awardCategory action
 
 export const createawardCategoryAction = createAsyncThunk(
     "awardCategory/create",
@@ -26,7 +28,7 @@ export const createawardCategoryAction = createAsyncThunk(
             //make http call here
 
             const { data } = await axios.post(`${BaseURL}/awardCategories`, payload, config);
-            console.log(data)
+            
             dispatch(resetawardCategoryCreated())
             return data;
 
@@ -42,8 +44,8 @@ export const createawardCategoryAction = createAsyncThunk(
     });
 
 
-// action to handle all awardCategorys created info
-//create awardCategory action
+// action to get all categories into our state
+
 
 export const fetchawardCategorysAction = createAsyncThunk(
     "awardCategories/fetch",
@@ -80,7 +82,7 @@ const config = {
     // action to publish an awardCategory
 //publish  awardCategory action
 
-export const publishawardCategorysAction = createAsyncThunk('awardCategorys/publish', async (payload, { rejectWithValue, getState, dispatch }) => {
+export const publishawardCategorysAction = createAsyncThunk('awardCategories/publish', async (payload, { rejectWithValue, getState, dispatch }) => {
     //get user token from store
 
     const userToken = getState()?.users?.userAuth?.token;
@@ -96,8 +98,8 @@ export const publishawardCategorysAction = createAsyncThunk('awardCategorys/publ
     try {
         //make http call here
 
-        const { data } = await axios.put(`${BaseURL}/awardCategorys/publish/${payload?.id}`, payload, config);
-        console.log(payload)
+        const { data } = await axios.put(`${BaseURL}/awardCategories/publish/${payload?.id}`, payload, config);
+        dispatch(resetawardCategoryPublished())
         return data;
     } catch (error) {
         if (!error?.response) {
@@ -138,6 +140,67 @@ export const closeawardCategorysAction = createAsyncThunk('awardCategorys/close'
 
 
 });
+
+// edit awardCategory
+export const editAwardCategorysAction = createAsyncThunk('awardCategorys/update', async (payload, { rejectWithValue, getState, dispatch }) => {
+    //get user token from store
+
+    const userToken = getState()?.users?.userAuth?.token;
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userToken}`,
+        },
+
+    };
+
+
+    try {
+        //make http call here
+
+        const { data } = await axios.put(`${BaseURL}/awardCategories/${payload?.id}`, payload, config);
+        dispatch(resetawardCategoryUpdated())
+        return data;
+    } catch (error) {
+        if (!error?.response) {
+            throw error;
+        }
+        return rejectWithValue(error?.response?.data);
+    }
+
+
+
+});
+
+export const deleteAwardCategoryAction = createAsyncThunk('awardCategory/delete', async (payload, { rejectWithValue, getState, dispatch }) => {
+    //get user token from store
+ 
+    const userToken = getState()?.users?.userAuth?.token;
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userToken}`,
+        },
+ 
+    };
+ 
+ 
+     try {
+         //make http call here
+ 
+         const { data } = await axios.delete(`${BaseURL}/awardCategories/${payload?.id}`, config);
+        dispatch(resetawardCategoryDeleted())
+         return data;
+     } catch (error) {
+         if (!error?.response) {
+             throw error;
+         }
+         return rejectWithValue(error?.response?.data);
+     }
+ 
+ 
+ 
+ });
 
 // create slices for dispatch
 
@@ -208,14 +271,16 @@ const awardCategorysSlices = createSlice({
             state.publishawardCategoryServerErr = undefined;
 
         });
-        
-        
+        // check if publish is a success
+        builder.addCase(resetawardCategoryPublished, (state, action) => {
+            state.isawardCategoryPublished = true});
         //hande success state
         builder.addCase(publishawardCategorysAction.fulfilled, (state, action) => {
             state.publishawardCategoryCreated = action?.payload;
             state.publishawardCategoryLoading = false;
             state.publishawardCategoryAppErr = undefined;
             state.publishawardCategoryServerErr = undefined;
+            state.isawardCategoryPublished = false
             
         });
         //hande rejected state
@@ -228,7 +293,7 @@ const awardCategorysSlices = createSlice({
 
         //close voting and participation of an awardCategory -action
 
-         // publish an awardCategory
+         
         //handle pending state
         builder.addCase(closeawardCategorysAction.pending, (state, action) => {
             state.closeawardCategoryLoading = true;
@@ -238,7 +303,7 @@ const awardCategorysSlices = createSlice({
         });
         
         
-        //hande success state
+        //handle success state
         builder.addCase(closeawardCategorysAction.fulfilled, (state, action) => {
             state.closeawardCategoryCreated = action?.payload;
             state.closeawardCategoryLoading = false;
@@ -253,6 +318,66 @@ const awardCategorysSlices = createSlice({
             state.closeawardCategoryAppErr = action?.payload?.msg;
             state.closeawardCategoryServerErr = action?.error?.msg;
         })
+
+        // edit a category
+
+         //handle pending state
+         builder.addCase(editAwardCategorysAction.pending, (state, action) => {
+            state.editAwardCategoryLoading = true;
+            state.editAwardCategoryAppErr = undefined;
+            state.editAwardCategoryServerErr = undefined;
+
+        })
+        
+        builder.addCase(resetawardCategoryUpdated, (state, action) => {
+            state.isawardCategoryUpdated = true})
+        //hande success state
+        builder.addCase(editAwardCategorysAction.fulfilled, (state, action) => {
+            state.editAwardCategoryCreated = action?.payload;
+            state.editAwardCategoryLoading = false;
+            state.editAwardCategoryAppErr = undefined;
+            state.editAwardCategoryServerErr = undefined;
+            state.isawardCategoryUpdated = false
+            
+        });
+        //hande rejected state
+
+        builder.addCase(editAwardCategorysAction.rejected, (state, action) => {
+            state.editAwardCategoryLoading = false;
+            state.editAwardCategoryAppErr = action?.payload?.msg;
+            state.editAwardCategoryServerErr = action?.error?.msg;
+        })
+
+                //delete  an award -action
+
+         // publish an award
+        //handle pending state
+        builder.addCase(deleteAwardCategoryAction.pending, (state, action) => {
+            state.deleteAWardLoading = true;
+            state.deleteAWardAppErr = undefined;
+            state.deleteAwardCategoryerverErr = undefined;
+
+        });
+        builder.addCase(resetawardCategoryDeleted, (state, action) => {
+            state.isawardCategoryDeleted = true
+        })
+        
+        //hande success state
+        builder.addCase(deleteAwardCategoryAction.fulfilled, (state, action) => {
+            state.deleteAwardCreated = action?.payload;
+            state.deleteAwardLoading = false;
+            state.deleteAwardAppErr = undefined;
+            state.deleteAwardCategoryerverErr = undefined;
+            state.isawardCategoryDeleted = false
+        });
+        //hande rejected state
+
+        builder.addCase(deleteAwardCategoryAction.rejected, (state, action) => {
+            state.deleteAwardLoading = false;
+            state.deleteAwardAppErr = action?.payload?.msg;
+            state.deleteAwardCategoryerverErr = action?.error?.msg;
+        })
+
     }
 })
 

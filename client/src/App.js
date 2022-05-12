@@ -17,6 +17,13 @@ import { About } from './pages/About';
 import Recover from './pages/users/Recover';
 import { Profile } from './pages/users/profile';
 import UpdateProfile from './pages/users/UpdateProfile';
+import { Testlogin } from './pages/users/testlogin';
+import { EditCategory } from './pages/Categories/editCategory';
+import { PublisedAwards } from './pages/awards/PublishedWards';
+import { EditAward } from './pages/awards/EditAward';
+import { AwardsDetails } from './pages/awards/AwardsDetails';
+import RegisterContestant from './pages/contestants/RegisterContestant';
+import { ContestantSuccess } from './pages/contestants/ContestantSuccess';
 
 
 
@@ -33,6 +40,11 @@ function App() {
           <Route exact path="/awards" element={<AllAwardsPublic />} />
           <Route exact path="/about" element={<About />} />
           <Route exact path="/about" element={<Recover />} />
+          <Route exact path="/test-login" element={<Testlogin />} />
+          <Route exact path="/award-details" element={<AwardsDetails />} />
+          <Route exact path="/register-contestant" element={<RegisterContestant />} />
+          <Route exact path="/contestant-success" element={<ContestantSuccess />} />
+
 
 
           <Route exact path="/add-award" element={
@@ -42,6 +54,10 @@ function App() {
             <Route exact path="/add-award" element={
             <Layout1>
               <AddAward />
+            </Layout1>} />
+            <Route exact path="/edit-award" element={
+            <Layout1>
+              <EditAward />
             </Layout1>} />
           <Route exact path="/profile" element={
             <Layout1>
@@ -59,8 +75,15 @@ function App() {
           <Route exact path="/all-awards" element={<Layout1>
             <AllWards />
           </Layout1>} />
+          <Route exact path="/published-awards" element={<Layout1>
+            <PublisedAwards />
+          </Layout1>} />
           <Route exact path="/add-category" element={<Layout1>
             <AddCategory />
+          </Layout1>} />
+
+          <Route exact path="/edit-category" element={<Layout1>
+            <EditCategory />
           </Layout1>} />
           <Route exact path="/categories" element={<Layout1>
             <AllCategories />

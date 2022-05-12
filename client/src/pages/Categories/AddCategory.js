@@ -57,7 +57,8 @@ console.log(mainAward)
         return state?.categories
 
     });
-    console.log(awardCategories)
+   
+// add the created category to state 
 
     const { isawardCategoryCreated } = awardCategories    
     //navigation and history

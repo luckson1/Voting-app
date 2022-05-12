@@ -4,7 +4,9 @@ import { BaseURL } from "../../../utils/BaseUrl";
 
 // actions for redirect 
 export const resetAwardCreated = createAction("award/created/reset")
-// export const resetawardUpdated = createAction("award/updated/reset")
+export const resetawardUpdated = createAction("award/updated/reset")
+export const resetawardPublished = createAction("award/published/reset")
+export const resetawardDeleted = createAction("award/Deleted/reset")
 //create award action
 
 export const createAwardAction = createAsyncThunk(
@@ -131,7 +133,7 @@ export const publishAwardsAction = createAsyncThunk('awards/publish', async (pay
         //make http call here
 
         const { data } = await axios.put(`${BaseURL}/awards/publish/${payload?.id}`, payload, config);
-        console.log(payload)
+        dispatch(resetawardPublished())
         return data;
     } catch (error) {
         if (!error?.response) {
@@ -143,7 +145,38 @@ export const publishAwardsAction = createAsyncThunk('awards/publish', async (pay
 
 
 });
-export const closeAwardsAction = createAsyncThunk('awards/close', async (payload, { rejectWithValue, getState, dispatch }) => {
+export const deleteAwardsAction = createAsyncThunk('awards/delete', async (payload, { rejectWithValue, getState, dispatch }) => {
+   //get user token from store
+
+   const userToken = getState()?.users?.userAuth?.token;
+   const config = {
+       headers: {
+           "Content-Type": "application/json",
+           Authorization: `Bearer ${userToken}`,
+       },
+
+   };
+
+
+    try {
+        //make http call here
+
+        const { data } = await axios.delete(`${BaseURL}/awards/${payload?.id}`, config);
+       dispatch(resetawardDeleted())
+        return data;
+    } catch (error) {
+        if (!error?.response) {
+            throw error;
+        }
+        return rejectWithValue(error?.response?.data);
+    }
+
+
+
+});
+
+// edit award
+export const editAwardsAction = createAsyncThunk('awards/update', async (payload, { rejectWithValue, getState, dispatch }) => {
     //get user token from store
 
     const userToken = getState()?.users?.userAuth?.token;
@@ -159,8 +192,8 @@ export const closeAwardsAction = createAsyncThunk('awards/close', async (payload
     try {
         //make http call here
 
-        const { data } = await axios.put(`${BaseURL}/awards/close/${payload?.id}`, payload, config);
-       
+        const { data } = await axios.put(`${BaseURL}/awards/${payload?.id}`, payload, config);
+        dispatch(resetawardUpdated())
         return data;
     } catch (error) {
         if (!error?.response) {
@@ -242,6 +275,9 @@ const awardsSlices = createSlice({
             state.publishAWardServerErr = undefined;
 
         });
+        builder.addCase(resetawardPublished, (state, action) => {
+            state.isawardPublished= true
+        })
         
         
         //hande success state
@@ -250,6 +286,7 @@ const awardsSlices = createSlice({
             state.publishAwardLoading = false;
             state.publishAwardAppErr = undefined;
             state.publishAwardServerErr = undefined;
+            state.isawardPublished = false
             
         });
         //hande rejected state
@@ -260,32 +297,63 @@ const awardsSlices = createSlice({
             state.publishAwardServerErr = action?.error?.msg;
         })
 
-        //close voting and participation of an award -action
+        //delete  an award -action
 
          // publish an award
         //handle pending state
-        builder.addCase(closeAwardsAction.pending, (state, action) => {
-            state.closeAWardLoading = true;
-            state.closeAWardAppErr = undefined;
-            state.closeAWardServerErr = undefined;
+        builder.addCase(deleteAwardsAction.pending, (state, action) => {
+            state.deleteAWardLoading = true;
+            state.deleteAWardAppErr = undefined;
+            state.deleteAWardServerErr = undefined;
 
         });
-        
+        builder.addCase(resetawardDeleted, (state, action) => {
+            state.isawardDeleted = true
+        })
         
         //hande success state
-        builder.addCase(closeAwardsAction.fulfilled, (state, action) => {
-            state.closeAwardCreated = action?.payload;
-            state.closeAwardLoading = false;
-            state.closeAwardAppErr = undefined;
-            state.closeAwardServerErr = undefined;
+        builder.addCase(deleteAwardsAction.fulfilled, (state, action) => {
+            state.deleteAwardCreated = action?.payload;
+            state.deleteAwardLoading = false;
+            state.deleteAwardAppErr = undefined;
+            state.deleteAwardServerErr = undefined;
+            state.isawardDeleted = false
+        });
+        //hande rejected state
+
+        builder.addCase(deleteAwardsAction.rejected, (state, action) => {
+            state.deleteAwardLoading = false;
+            state.deleteAwardAppErr = action?.payload?.msg;
+            state.deleteAwardServerErr = action?.error?.msg;
+        })
+
+         // edit an award
+
+         //handle pending state
+         builder.addCase(editAwardsAction.pending, (state, action) => {
+            state.editAwardLoading = true;
+            state.editAwardAppErr = undefined;
+            state.editAwardServerErr = undefined;
+
+        })
+        
+        builder.addCase(resetawardUpdated, (state, action) => {
+            state.isawardUpdated = true})
+        //hande success state
+        builder.addCase(editAwardsAction.fulfilled, (state, action) => {
+            state.editAwardCreated = action?.payload;
+            state.editAwardLoading = false;
+            state.editAwardAppErr = undefined;
+            state.editAwardServerErr = undefined;
+            state.isawardUpdated = false
             
         });
         //hande rejected state
 
-        builder.addCase(closeAwardsAction.rejected, (state, action) => {
-            state.closeAwardLoading = false;
-            state.closeAwardAppErr = action?.payload?.msg;
-            state.closeAwardServerErr = action?.error?.msg;
+        builder.addCase(editAwardsAction.rejected, (state, action) => {
+            state.editAwardLoading = false;
+            state.editAwardAppErr = action?.payload?.msg;
+            state.editAwardServerErr = action?.error?.msg;
         })
     }
 })

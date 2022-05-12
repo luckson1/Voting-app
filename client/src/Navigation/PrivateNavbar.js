@@ -26,7 +26,7 @@ const PrivateNavbar = () => {
                     aria-controls=".navbar-collapse"
                     aria-expanded="false"
                     aria-label="Toggle navigation">
-                    <i className="fas fa-bars"></i>
+                     <i className="bi bi-list"></i>
                 </button>
 
                 {/* collapsible wrapper */}

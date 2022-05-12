@@ -73,8 +73,9 @@ const filterAwardCtrl= expressAsyncHandler(async (req, res) => {
 
 const updateAwardctrl = expressAsyncHandler(async (req, res) => {
     const { id } = req.params
+    const {title, description}=req?.body
         try {
-        const award = await Award.findByIdAndUpdate(id, ...req?.body, { new: true })
+        const award = await Award.findByIdAndUpdate(id, {title, description}, { new: true })
         res.json(award)
     } catch (error) {
 
@@ -113,6 +114,7 @@ const closeAwardctrl = expressAsyncHandler(async (req, res) => {
 
 const deleteAwardctrl = expressAsyncHandler(async (req, res) => {
     const { id } = req.params
+    console.log(id)
     try {
         const award = await Award.findByIdAndDelete (id)
         res.json(award)

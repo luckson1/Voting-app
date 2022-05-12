@@ -2,7 +2,9 @@ import  React, {useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.min.css"
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Awards } from '../../Components/Awards';
+import LoadingComponent from '../../Components/Loading';
 import { fetchAwardsAction } from '../../redux/slices/awards/AwardsSlices';
 
 
@@ -23,20 +25,27 @@ useEffect(() => {dispatch(fetchAwardsAction())}, [dispatch])
 
   //obtain awards from state
 
-    const {awardCreated, awardLoading, awardAppErr, awardServerErr}= allawards
+    const {awardCreated, awardLoading, awardAppErr, awardServerErr, isawardPublished, isawardDeleted}= allawards
     const awards=awardCreated?.awards
-   
+   // call useNavigate
+   const navigate = useNavigate()
     
+   useEffect(() => {
+    if (isawardPublished) navigate('/published-awards')
+}, [isawardPublished, dispatch, navigate])
 
+useEffect(() => {
+  if (isawardDeleted) navigate('/all-awards')
+}, [isawardDeleted, dispatch, navigate])
 
     return(
         
         <>
         
-      <div className='container-fluid  bg-light'>
+      <div className='container-fluid'>
         <div className='row'>
           <div className='col  justify-content-center'>
-            <h1 className="display-2 text-center text-primary fw-bold">Latest Awards</h1>
+            <h1 className="display-5 text-center text-primary fw-bold">Latest Awards</h1>
             <p className="h6 text-center">These are the latest awards that have been added. You can find past, ongoing and upcoming awards here, by using the filtering options below.</p>
 
           </div>
@@ -45,7 +54,7 @@ useEffect(() => {dispatch(fetchAwardsAction())}, [dispatch])
       </div>
       <div className="container-fluid my-5 mx-5">
         <div className='row'>
-          <div className="col">
+          <div className="col-3">
             <label htmlFor="datepicker" className="form-label fw-bold text-secondary ">Select start-date</label>
             <DatePicker
               className='datepicker'
@@ -57,7 +66,7 @@ useEffect(() => {dispatch(fetchAwardsAction())}, [dispatch])
 
 
           </div>
-          <div className="col">
+          <div className="col-3">
             <label htmlFor="datepicker" className="form-label fw-bold text-secondary">Select end-date</label>
             <DatePicker
               className='datepicker'
@@ -68,27 +77,14 @@ useEffect(() => {dispatch(fetchAwardsAction())}, [dispatch])
 
 
           </div>
-          <div className="col-4">
-            <div className="dropdown">
-            <label htmlFor="dropdown" className="form-label fw-bold text-secondary"> Select Category</label>
-              <button className="btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Filter by Award Category
-              </button>
-              <div className="dropdown-menu" aria-labelledby="dropdownMenu2" id="dropdown"> 
-                <button className="dropdown-item" type="button">Action</button>
-                <button className="dropdown-item" type="button">Another action</button>
-                <button className="dropdown-item" type="button">Something else here</button>
-              </div>
-            </div>
-          </div>
-
+         
         </div>
       </div>
 
       <div className='container-fluid my-5'>
         <div className='row'>
         {awardLoading ? (
-                                        <h1>Loading</h1>
+                                        <h1><LoadingComponent /></h1>
                                     ) : awardServerErr || awardAppErr ? (
                                         <div>Err</div>
                                     ) : awards?.length<= 0 ? (

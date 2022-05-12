@@ -51,23 +51,14 @@ const Login = () => {
     }, [userAuth, navigate])
 
     return (
-        <section
-            style={{ height: "100vh" }}
-            className=" py-5  overflow-hidden bg-info container-fluid"
-        >
-            <div className="d-none d-md-block position-absolute top-0 start-0 bg-light w-75 h-100"></div>
-            <div className="d-md-none position-absolute top-0 start-0 bg-primary w-100 h-100"></div>
-            <div className="container position-relative mx-auto">
-                <div className="row align-items-center">
-                    <div className="col-12 col-lg-5 mb-5">
-                        <div>
-                            <img src={login} alt="" />
-                        </div>
-                    </div>
-                    <div className="col-12 col-lg-5 ms-auto">
-                        <div className="p-5 bg-light rounded ">
-                           
-                            <h3 className="fw-bold mb-5 text-center">Login to your account</h3>
+        <section className='Form my-4, mx-5 my-5'>
+        <div className="container">
+        <div className='row bg-light no-gutters'  style={{borderRadius:"30px"}}>
+                <div className="col-lg-5 pt-2 px-2">
+                    <img src={login} alt="" className="img-fluid" />
+                </div>
+                <div className='col-lg-7 px-5 pt-1'>
+                <h3 className="fw-bold mb-2 py-5">Login to your account</h3>
                             {/* Display Err */}
 
                             {userAppErr || userServerErr ? (
@@ -75,49 +66,61 @@ const Login = () => {
                   {userServerErr} {userAppErr}
                 </div>
               ) : null}
-                            <form onSubmit={formik.handleSubmit}>
+                    <form onSubmit={formik.handleSubmit}>
+                        <div className="form-row">
+                            <div className='col-lg-7'>
                                 <input
                                     value={formik.values.email}
                                     onChange={formik.handleChange("email")}
                                     onBlur={formik.handleBlur("email")}
-                                    className="form-control mb-2"
+                                    className="form-control mb-2 p-2"
                                     type="email"
                                     placeholder="E-mail address"
                                 />
-                                {/* Err */}
-                                <div className="text-danger mb-2">
-                                    {formik.touched.email && formik.errors.email}
-                                </div>
+                            </div>
+                        </div>
+                        {/* Err */}
+                        <div className="text-danger mb-2">
+                            {formik.touched.email && formik.errors.email}
+                        </div>
+                        <Link to="/recover" className="text-warning "> <p className="text-center mb-0 mx-0">Forgot Password?</p></Link>
+                        <div className="form-row">
+                            <div className='col-lg-7'>
+                            
                                 <input
                                     value={formik.values.password}
                                     onChange={formik.handleChange("password")}
                                     onBlur={formik.handleBlur("password")}
-                                    className="form-control mb-2"
+                                    className="form-control mb-2 p-2"
                                     type="password"
                                     placeholder="Password"
                                 />
-                                {/* Err */}
-                                <div className="text-danger mb-2">
-                                    {formik.touched.password && formik.errors.password}
-                                </div>
-
-                                <div>
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary py-2 w-100 mb-4"
-                                    >
-                                        Login
-                                    </button>
-                                </div>
-                                <div id="emailHelp" className="form-text text-center mb-5 text-dark"><Link to="/recover" className="text-dark fw-bold"> Forgot Your Password?</Link>
-                                <li><Link className= " btn btn-warning  py-1 w-100 mb-2" type="button" to="/register">New User? Register</Link></li>
-                                </div>
-                            </form>
+                            </div>
+                           
                         </div>
-                    </div>
+                        {/* Err */}
+                        <div className="text-danger mb-2">
+                            {formik.touched.password && formik.errors.password}
+                        </div>
+
+                        <div className="form-row">
+                            <div className='col-lg-7'>
+                                <button
+                                    type="submit"
+                                    className="btn btn-primary py-2 w-100 my-4"
+                                >
+                                    Login
+                                </button>
+                            </div>
+                        </div>
+                        <p> Don't have an account? <a href="/register">Register Here</a></p>
+                    </form>
                 </div>
+
             </div>
-        </section>
+
+        </div >
+    </section >
     );
 };
 

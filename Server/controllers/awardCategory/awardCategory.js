@@ -47,14 +47,32 @@ const fetchOneAwardCategoryCtrl = expressAsyncHandler(async (req, res) => {
 
 const updateAwardCategoryctrl = expressAsyncHandler(async (req, res) => {
     const { id } = req.params
+    
+  const   {title, startDate, endDate, optForNotification}=req?.body
         try {
-        const awardCategory = await AwardCategory.findByIdAndUpdate(id, ...req?.body, { new: true })
+        const awardCategory = await AwardCategory.findByIdAndUpdate(id, {title, startDate, endDate, optForNotification}, { new: true })
+        
         res.json(awardCategory)
+        console.log(awardCategory)
     } catch (error) {
 
         res.json(error)
     }
 });
+
+// // publish award 
+const publishAwardCategoryctrl = expressAsyncHandler(async (req, res) => {
+    const { id } = req?.params
+   
+            try {
+        const awardCategory = await AwardCategory.findByIdAndUpdate(id, {published:true}, { new: true })
+       
+        res.json(awardCategory)
+    } catch (error) {
+
+        res.json(error)
+    }
+})
 
 //delete awardCategory
 
@@ -69,4 +87,4 @@ const deleteAwardCategoryctrl = expressAsyncHandler(async (req, res) => {
     }
 })
 
-module.exports ={createAwardCategoryCtrl, fetchOneAwardCategoryCtrl, fetchAllAwardCategory, updateAwardCategoryctrl, deleteAwardCategoryctrl}
+module.exports ={publishAwardCategoryctrl, createAwardCategoryCtrl, fetchOneAwardCategoryCtrl, fetchAllAwardCategory, updateAwardCategoryctrl, deleteAwardCategoryctrl}

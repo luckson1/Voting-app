@@ -64,26 +64,14 @@ const Register = () => {
       }, [isRegistered, navigate])
 
     return (
-        <section
-            style={{ height: "100vh" }}
-            className="position-relative py-5  overflow-hidden bg-info"
-        >
-            <div className="d-none d-md-block position-absolute top-0 start-0 bg-light w-75 h-100"></div>
-            <div className="d-md-none position-absolute top-0 start-0 bg-primary w-100 h-100"></div>
-            <div className="container position-relative mx-auto">
-                <div className="row align-items-center">
-                    <div className="col-12 col-lg-5 mb-5">
-                        <div>
-                            <img src={login} alt="" />
-                        </div>
-                    </div>
-                    <div className="col-12 col-lg-5 ms-auto">
-                        <div className="p-5 bg-light rounded ">
-                            <div id="emailHelp" className="form-text text-center mb-2 text-dark">
-                                <li><Link className=" btn btn-warning  py-1 w-100 mb-2" type="button" to="/register">Have an Account? Login</Link></li>
-                            </div>
-
-                            <h3 className="fw-bold mb-2 text-center">Create your account</h3>
+        <section className='Form my-4, mx-5 my-0'>
+        <div className="container">
+        <div className='row bg- no-gutters'  style={{borderRadius:"30px"}}>
+                <div className="col-lg-5 pt-2 px-2 ">
+                    <img src={login} alt="" className="img-fluid" />
+                </div>
+                <div className='col-lg-7 px-5 pt-0 mt-0'>
+                <h3 className="fw-bold mb-2 py-2">Create your account</h3>
                             {/* Display Err */}
 
                             {userAppErr || userServerErr ? (
@@ -91,134 +79,159 @@ const Register = () => {
                   {userServerErr} {userAppErr}
                 </div>
               ) : null}
-                            <form onSubmit={formik.handleSubmit} enctype="multipart/form-data">
+                    <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
+                        
+                    <div className="form-row">
+                            <div className='col-lg-7'>
                                 <input
                                     value={formik.values.firstname}
                                     onChange={formik.handleChange("firstname")}
                                     onBlur={formik.handleBlur("firstname")}
-                                    className="form-control mb-2"
+                                    className="form-control mb-2 p-2"
                                     type="text"
-                                    placeholder="firstname"
+                                    placeholder="First Name"
                                 />
-                                {/* Err */}
-                                <div className="text-danger mb-2">
-                                    {formik.touched.firstname && formik.errors.firstname}
-                                </div>
+                            </div>
+                        </div>
+                        {/* Err */}
+                        <div className="text-danger mb-2">
+                            {formik.touched.firstname && formik.errors.firstname}
+                        </div>
+                        <div className="form-row">
+                            <div className='col-lg-7'>
                                 <input
                                     value={formik.values.lastname}
                                     onChange={formik.handleChange("lastname")}
                                     onBlur={formik.handleBlur("lastname")}
-                                    className="form-control mb-2"
+                                    className="form-control mb-2 p-2"
                                     type="text"
-                                    placeholder="lastname"
+                                    placeholder="Last Name"
                                 />
-                                {/* Err */}
-                                <div className="text-danger mb-2">
-                                    {formik.touched.lastname && formik.errors.lastname}
-                                </div>
-                                <input
-                                    value={formik.values.email}
-                                    onChange={formik.handleChange("email")}
-                                    onBlur={formik.handleBlur("email")}
-                                    className="form-control mb-2"
-                                    type="email"
-                                    placeholder="E-mail address"
-                                />
-                                {/* Err */}
-                                <div className="text-danger mb-2">
-                                    {formik.touched.email && formik.errors.email}
-                                </div>
+                            </div>
+                        </div>
+                        {/* Err */}
+                        <div className="text-danger mb-2">
+                            {formik.touched.lastname && formik.errors.lastname}
+                        </div>
+                        <div className="form-row">
+                            <div className='col-lg-7'>
                                 <input
                                     value={formik.values.phoneNumber}
                                     onChange={formik.handleChange("phoneNumber")}
                                     onBlur={formik.handleBlur("phoneNumber")}
-                                    className="form-control mb-2"
+                                    className="form-control mb-2 p-2"
                                     type="text"
-                                    placeholder="phoneNumber"
+                                    placeholder="Phone Number"
                                 />
-                                {/* Err */}
-                                <div className="text-danger mb-2">
-                                    {formik.touched.phoneNumber && formik.errors.phoneNumber}
-                                </div>
-
+                            </div>
+                        </div>
+                        {/* Err */}
+                        <div className="text-danger mb-2">
+                            {formik.touched.phoneNumber && formik.errors.phoneNumber}
+                        </div>
+                        <div className="form-row">
+                            <div className='col-lg-7'>
+                                <input
+                                    value={formik.values.email}
+                                    onChange={formik.handleChange("email")}
+                                    onBlur={formik.handleBlur("email")}
+                                    className="form-control mb-2 p-2"
+                                    type="email"
+                                    placeholder="E-mail address"
+                                />
+                            </div>
+                        </div>
+                        {/* Err */}
+                        <div className="text-danger mb-2">
+                            {formik.touched.email && formik.errors.email}
+                        </div>
+                        <div className="form-row">
+                            <div className='col-lg-7'>
                                 <input
                                     value={formik.values.company}
                                     onChange={formik.handleChange("company")}
                                     onBlur={formik.handleBlur("company")}
-                                    className="form-control mb-2"
-                                    type="text"
+                                    className="form-control mb-2 p-2"
+                                    type="Text"
                                     placeholder="company"
                                 />
-                                {/* Err */}
-                                <div className="text-danger mb-2">
-                                    {formik.touched.companyTitle && formik.errors.companyTitle}
-                                </div>
+                            </div>
+                        </div>
+                        {/* Err */}
+                        <div className="text-danger mb-2">
+                            {formik.touched.company && formik.errors.company}
+                        </div>
+                        <div className="form-row">
+                            <div className='col-lg-7'>
                                 <input
                                     value={formik.values.companyTitle}
                                     onChange={formik.handleChange("companyTitle")}
                                     onBlur={formik.handleBlur("companyTitle")}
-                                    className="form-control mb-2"
-                                    type="text"
+                                    className="form-control mb-2 p-2"
+                                    type="Text"
                                     placeholder="companyTitle"
                                 />
-                                {/* Err */}
-                                <div className="text-danger mb-2">
-                                    {formik.touched.companyTitle && formik.errors.companyTitle}
-                                </div>
-                                <div className="input-group mb-2">
-                                    <label
-                                        className="input-group-text"
-                                        htmlFor="inputGroupFile02">
-                                        image
-                                    </label>
-                                    <input
-                                    name="image"
-                                        value={undefined}
-                                        onChange={(e) =>
-                                            formik.setFieldValue('image', e.currentTarget.files[0])
-                                          }
-                                        onBlur={formik.handleBlur("image")}
-                                        className="form-control"
-                                        type="file"
-                                        placeholder="Profile Image"
-                                        id="inputGroupFile02"
-                                    />
-                                </div>
-
-                                {/* Err */}
-                                <div className="text-danger mb-2">
-                                    {formik.touched.image && formik.errors.image}
-                                </div>
+                            </div>
+                        </div>
+                        {/* Err */}
+                        <div className="text-danger mb-2">
+                            {formik.touched.companyTitle && formik.errors.companyTitle}
+                        </div>
+                        <div className="form-row">
+                            <div className='col-lg-7'>
+                                <input
+                                    value={formik.values.image}
+                                    onChange={(e) =>
+                                        formik.setFieldValue('image', e.currentTarget.files[0])
+                                      }
+                                    onBlur={formik.handleBlur("image")}
+                                    className="form-control mb-2 p-2"
+                                    type="file"
+                                    placeholder="image"
+                                />
+                            </div>
+                        </div>
+                        {/* Err */}
+                        <div className="text-danger mb-2">
+                            {formik.touched.image && formik.errors.image}
+                        </div>
+                        <div className="form-row">
+                            <div className='col-lg-7'>
+                            
                                 <input
                                     value={formik.values.password}
                                     onChange={formik.handleChange("password")}
                                     onBlur={formik.handleBlur("password")}
-                                    className="form-control mb-2"
+                                    className="form-control mb-2 p-2"
                                     type="password"
                                     placeholder="Password"
                                 />
-                                {/* Err */}
-                                <div className="text-danger mb-2">
-                                    {formik.touched.password && formik.errors.password}
-                                </div>
-
-                                <div>
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary py-2 w-100 mb-4"
-                                    >
-                                        Register
-                                    </button>
-                                </div>
-                                <div id="emailHelp" className="form-text text-center mb-5 text-dark"><Link to="/recover" className="text-dark fw-bold"> Forgot Your Password?</Link>
-                                    <li><Link className=" btn btn-warning  py-1 w-100 mb-2" type="button" to="/register">New User? Register</Link></li>
-                                </div>
-                            </form>
+                            </div>
+                           
                         </div>
-                    </div>
+                        {/* Err */}
+                        <div className="text-danger mb-2">
+                            {formik.touched.password && formik.errors.password}
+                        </div>
+
+                        <div className="form-row">
+                            <div className='col-lg-7'>
+                                <button
+                                    type="submit"
+                                    className="btn btn-primary py-2 w-100 my-4"
+                                >
+                                   Register
+                                </button>
+                            </div>
+                        </div>
+                        <p> Have an account? <a href="/Login">Login Here</a></p>
+                    </form>
                 </div>
+
             </div>
-        </section>
+
+        </div >
+    </section >
     );
 };
 
