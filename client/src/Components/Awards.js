@@ -33,13 +33,13 @@ const navigate =useNavigate()
           </div>
           <div className="card-body">
             <h4 className="card-title" >{data?.title}</h4>
-            <h6 className="card-title  btn-link" type="button" onClick={() =>navigate({pathname: '/categories'}, {state: data})} >{data?.title} Categories</h6>
+            <h6 className="card-title  btn-link text-warning" type="button" onClick={() =>navigate({pathname: '/categories'}, {state: data})} ><i className="bi bi-folder-plus fs-5"> Browse  Categories</i></h6>
             <p className="card-text">{data?.description}</p>
           </div>
 
           <div className="card-body ">
             {data?.published===true? (<p  className=" text-success" style={{fontSize: " 0.7rem"}}>Published</p>): <button onClick={()=> { dispatch(publishAwardsAction(data))}} className="card-link btn-sm btn-primary" style={{fontSize: " 0.7rem"}} >Publish</button>}
-            <button onClick={() =>navigate({pathname: '/add-category'}, {state: data})} className="card-link btn-sm  btn-primary" style={{fontSize: " 0.7rem"}}>+Categories</button>
+            <button onClick={() =>navigate({pathname: '/add-category'}, {state: data})} className="card-link btn-sm  btn-primary" ><i className="bi bi-plus-circle "> Categories</i></button>
             <button onClick={()=> navigate({pathname: "/edit-award"}, {state:data}) } className="card-link btn-sm btn-warning" ><i className="bi bi-pencil-square"></i></button>
             <button onClick={()=> dispatch(deleteAwardsAction(data))} className="card-link btn-sm btn-danger" ><i class="bi bi-trash"></i></button>
           </div>

@@ -35,7 +35,7 @@ const createAwardCtrl= expressAsyncHandler(async (req, res) => {
 
 const fetchAllAwardsCtrl= expressAsyncHandler(async (req, res) => {
     try {
-        const awards=await Award.find({}).populate("categories")
+        const awards=await Award.find({}).populate(["categories", 'contestants'])
         res.json({awards})
     } catch (error) {
         res.json({error}) 
@@ -89,7 +89,7 @@ const publishAwardctrl = expressAsyncHandler(async (req, res) => {
     console.log(req?.body)
             try {
         const award = await Award.findByIdAndUpdate(id, {published:true}, { new: true })
-       console.log()
+       
         res.json(award)
     } catch (error) {
 

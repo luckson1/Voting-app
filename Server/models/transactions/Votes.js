@@ -1,7 +1,7 @@
 //user schema with email, password, and name
 const mongoose = require("mongoose");
 
-const transactionsSchema = new mongoose.Schema(
+const votesSchema = new mongoose.Schema(
   {
    
     user: {
@@ -14,20 +14,13 @@ const transactionsSchema = new mongoose.Schema(
       ref: "AwardCategory",
       required: true,
     },
-    // mainAward: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "MainAward",
-    //   required: true,
-    // },
+    
     contestantVotingFor: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Contestants",
       required: true,
     },
-    transaction: {
-      type: Object,
-      required: true,
-    },
+   
    
   },
   {
@@ -36,5 +29,5 @@ const transactionsSchema = new mongoose.Schema(
 );
 
 //create the model for users and expose it to our app
-const Transaction = mongoose.model("Transaction", transactionsSchema);
-module.exports = Transaction;
+const Vote = mongoose.model("Vote", votesSchema);
+module.exports = Vote;

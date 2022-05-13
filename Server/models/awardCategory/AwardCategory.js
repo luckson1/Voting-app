@@ -122,8 +122,8 @@ awardCategorySchema.pre("validate", function (next) {
 //calculate days left based on start date and end date
 awardCategorySchema.virtual("daysLeft").get(function () {
   const today = new Date();
-  const startDate = new Date(this.start_date);
-  const endDate = new Date(this.end_date);
+  const startDate = new Date(this.startDate);
+  const endDate = new Date(this.endDate);
   const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
   const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
   const daysLeft =

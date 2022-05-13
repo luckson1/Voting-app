@@ -18,7 +18,7 @@ const image=award?.image
        <h1 className="text-center text-success"> {award?.title} Categories</h1>
     {award?.categories.length<= 0 ? (<h1>No Categories Found</h1>) : (award?.categories.map(category => {
                                         
-                                        return <PublicCategories categories={category} key={category?._id} image={image}/>
+                                        return <PublicCategories category={category} key={category?._id} image={image}/>
                                     }))}
        </div>
        </div>

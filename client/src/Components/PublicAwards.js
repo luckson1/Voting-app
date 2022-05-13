@@ -32,11 +32,12 @@ const navigate =useNavigate()
           </div>
           <div className="card-body">
             <h4 className="card-title" >{data?.title}</h4>
+            <h6 className="card-title  btn-link text-warning" type="button" onClick={() =>navigate({pathname: '/award-details'}, {state: data})} ><i className="bi bi-folder-plus fs-5"> Browse  Categories</i></h6>
                   <p className="card-text">{data?.description}</p>
           </div>
 
           <div className="card-body ">
-          <h6 className="card-title  btn-link" type="button" onClick={() =>navigate({pathname: '/award-details'}, {state: data})} >View Categories of {data?.title}</h6>
+   
           </div>
         </div>
       </div>

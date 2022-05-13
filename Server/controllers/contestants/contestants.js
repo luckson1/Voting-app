@@ -37,7 +37,7 @@ const fetchAllCtrl= expressAsyncHandler( async (req, res)=> {
 // profile of contestant/fetch one
 
 const contestantProfileCtrl = expressAsyncHandler(async (req, res) => {
-const id=req?.contestant?._id
+  const {id}=req?.params
   try {
     const profile = await Contestants.findById(req?.contestant?._id).populate("comments");
 
@@ -51,15 +51,31 @@ const id=req?.contestant?._id
 // approve contestants
 
 const contestantProfileUpdateCtrl = expressAsyncHandler(async (req, res) => {
-    const id=req?.contestant?._id
+    const {id}=req?.params
+    
       try {
-    const profile = await Contestants.findByIdAndUpdate({id}, {$set: { status: "approved"}});
+    const profile = await Contestants.findByIdAndUpdate(id, {status: "Approved"}, { new: true });
     
         res.json(profile);
       } catch (error) {
         res.json(error);
       }
     });
+
+    // reject contestants
+
+const contestantProfileRejectCtrl = expressAsyncHandler(async (req, res) => {
+  const {id}=req?.params
+  
+    try {
+  const profile = await Contestants.findByIdAndUpdate(id, {status: "Rejected"}, { new: true });
+  
+      res.json(profile);
+    } catch (error) {
+      res.json(error);
+    }
+  });
+
 
 
     // delete contestant
@@ -74,4 +90,4 @@ const contestantProfileUpdateCtrl = expressAsyncHandler(async (req, res) => {
       }
   })
 
-    module.exports= {contestantProfileUpdateCtrl, contestantProfileCtrl, registerContestant, fetchAllCtrl, deleteContestant}
+    module.exports= {contestantProfileRejectCtrl, contestantProfileUpdateCtrl, contestantProfileCtrl, registerContestant, fetchAllCtrl, deleteContestant}

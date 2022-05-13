@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import star from "../Components/images/logo.svg"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/slices/users/UserSlices";
 
 
@@ -12,7 +12,8 @@ const PrivateNavbar = () => {
     // create instance of  useDispatch 
     const dispatch = useDispatch()
 
-   
+   const state=useSelector(state=> state?.users)
+   const profileImage=state?.userAuth?.userFound?.image
        return (
 
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -64,7 +65,7 @@ const PrivateNavbar = () => {
                 <div className="d-flex align-items-center ">
                    
                         <Link to="/add-award" className=" nav-link nav-item mb-2  btn-warning me-2">
-                            +Awards
+                        <i className="bi bi-plus-circle "> Awards</i>
                         </Link>
                  
 
@@ -78,7 +79,7 @@ const PrivateNavbar = () => {
                             aria-expanded="false"
                         >
                             <img
-                                src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                                src={profileImage}
                                 className="rounded-circle"
                                 height="25"
                                 alt="Black and White Portrait of a Man"

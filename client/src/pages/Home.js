@@ -23,7 +23,7 @@ export const Home = () => {
   const [endDate, setEndDate] = useState(new Date())
   const handleChange2 = (date) => setEndDate(date)
 
-  //navigate 
+  //dispatch
 const dispatch = useDispatch()
 
 //dispatch actions to fetch all awards

@@ -1,9 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-export const PublicCategories = ({categories, image}) => {
+export const PublicCategories = ({category, image}) => {
 
     // call navigate function to pass state 
     const navigate = useNavigate()
+
+
 
    
 
@@ -17,12 +20,13 @@ export const PublicCategories = ({categories, image}) => {
                     <div className="card mx-2 my-2 " style={{ width: "18rem" }}>
                         <img src={image} className="card-img-top" alt="..." />
                         <div className="card-body">
-                            <h5 className="card-title">{categories?.title}</h5>
+                            <h5 className="card-title">{category?.title}</h5>
                            
                         </div>
                        
                         <div className="card-body">                        
-                        <button onClick={()=> navigate({pathname:"/register-contestant"}, {state:categories})} className="card-link btn-sm btn-success" ><i class="bi bi-clipboard-check fs-5"><span>Apply</span></i></button>
+                        <button onClick={()=> navigate({pathname:"/register-contestant"}, {state:category})} className="card-link btn-sm btn-success me-5 ms-2" ><i className="bi bi-clipboard-check fs-7"><span> Contest</span></i></button>
+                        <button onClick={()=> navigate({pathname:"/vote-contestant"}, {state:category})} className="card-link btn-sm btn-warning ms-5" ><i className="bi bi-check2-circle fs-7"><span> Vote</span></i></button>
                         </div>
                     </div>
                 </div>
