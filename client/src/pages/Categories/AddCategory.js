@@ -21,7 +21,7 @@ export const AddCategory = () => {
   // access location data and state
   const location=useLocation()
  const mainAward=location?.state
-console.log(mainAward)
+
   // call dispatch
   const dispatch = useDispatch()
     

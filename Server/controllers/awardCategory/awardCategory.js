@@ -8,7 +8,7 @@ require('dotenv').config()
 const createAwardCategoryCtrl= expressAsyncHandler(async (req, res) => {
     
     const user= req?.user?._id
-    console.log(req)
+    
     try {
         const awardCategory= await AwardCategory.create({...req?.body})
    
@@ -34,9 +34,10 @@ const fetchAllAwardCategory= expressAsyncHandler(async (req, res) => {
 // fetch one awardCategory
 
 const fetchOneAwardCategoryCtrl = expressAsyncHandler(async (req, res) => {
-    const {id}=req?.params
+    const { id } = req?.params
+    console.log(id)
     try {
-        const awardCategory= await AwardCategory.findById({id})
+        const awardCategory= await AwardCategory.findById(id).populate('contestants')
         res.json({awardCategory})
     } catch (error) {
         res.json({error}) 
@@ -46,14 +47,14 @@ const fetchOneAwardCategoryCtrl = expressAsyncHandler(async (req, res) => {
 //updates awardCategory
 
 const updateAwardCategoryctrl = expressAsyncHandler(async (req, res) => {
-    const { id } = req.params
+    const { id } = req?.params
     
   const   {title, startDate, endDate, optForNotification}=req?.body
         try {
         const awardCategory = await AwardCategory.findByIdAndUpdate(id, {title, startDate, endDate, optForNotification}, { new: true })
         
         res.json(awardCategory)
-        console.log(awardCategory)
+        
     } catch (error) {
 
         res.json(error)
@@ -63,6 +64,7 @@ const updateAwardCategoryctrl = expressAsyncHandler(async (req, res) => {
 // // publish award 
 const publishAwardCategoryctrl = expressAsyncHandler(async (req, res) => {
     const { id } = req?.params
+    console.log(id)
    
             try {
         const awardCategory = await AwardCategory.findByIdAndUpdate(id, {published:true}, { new: true })
@@ -74,10 +76,12 @@ const publishAwardCategoryctrl = expressAsyncHandler(async (req, res) => {
     }
 })
 
+
+
 //delete awardCategory
 
 const deleteAwardCategoryctrl = expressAsyncHandler(async (req, res) => {
-    const { id } = req.params
+    const { id } = req?.params
     try {
         const awardCategory = await AwardCategory.findByIdAndDelete (id)
         res.json(awardCategory)

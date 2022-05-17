@@ -13,6 +13,7 @@ const manualVotesRoute = require('./routes/ManualVotes/manualVotes');
 const awardsRoute = require('./routes/Awards/Awards');
 const awardCategoryRoute = require('./routes/awardCategory/awardCategory');
 const contestantRoute = require('./routes/contestants/Contestants');
+const votesRoute = require('./routes/Votes/votes');
 
 
 
@@ -45,7 +46,7 @@ app.use('/api/password', passRoutes);
 app.use('/api/users', userRoutes)
 
 //manual votes
-app.use('/api/votes', manualVotesRoute)
+app.use('/api/manualVotes', manualVotesRoute)
 
 //awards routes
 app.use('/api/awards', awardsRoute)
@@ -55,7 +56,8 @@ app.use('/api/awardCategories', awardCategoryRoute)
 
 //contestants routes
 app.use('/api/contestants', contestantRoute)
-
+//Votesroutes
+app.use('/api/votes', votesRoute)
 //errors
 
 app.use(notFound);

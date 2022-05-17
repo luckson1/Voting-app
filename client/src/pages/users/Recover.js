@@ -36,7 +36,7 @@ const Recover = () => {
             
         },
         onSubmit: values => {
-            console.log(values)
+            
         },
 
         validationSchema: formSchema,

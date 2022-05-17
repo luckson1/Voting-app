@@ -48,11 +48,11 @@ export const createawardCategoryAction = createAsyncThunk(
 
 
 export const fetchawardCategorysAction = createAsyncThunk(
-    "awardCategories/fetch",
+    "awardCategory/fetch",
     async (payload, { rejectWithValue, getState, dispatch }) => {
         //get user token from store
         const userToken = getState()?.users?.userAuth?.token;
-console.log(userToken)
+
 const config = {
     headers: {
         "Content-Type": "application/json",
@@ -65,7 +65,7 @@ const config = {
         try {
             //make http call here
 
-            const { data } = await axios.get(`${BaseURL}/awardCategories`, config);
+            const { data } = await axios.get(`${BaseURL}/awardCategories/${payload?.id}`, config);
             return data;
 
         } catch (error) {

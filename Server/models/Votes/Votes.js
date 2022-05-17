@@ -4,12 +4,7 @@ const mongoose = require("mongoose");
 const votesSchema = new mongoose.Schema(
   {
    
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    awardCategory: {
+      awardCategory: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "AwardCategory",
       required: true,
@@ -18,6 +13,11 @@ const votesSchema = new mongoose.Schema(
     contestantVotingFor: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Contestants",
+      required: true,
+    },
+    email: {
+      type: String,
+      
       required: true,
     },
    
@@ -29,5 +29,5 @@ const votesSchema = new mongoose.Schema(
 );
 
 //create the model for users and expose it to our app
-const Vote = mongoose.model("Vote", votesSchema);
-module.exports = Vote;
+const Votes = mongoose.model("Vote", votesSchema);
+module.exports = Votes;

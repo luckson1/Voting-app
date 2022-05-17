@@ -36,7 +36,7 @@ const UpdatePassword = () => {
             RepeatPassword: "",
         },
         onSubmit: values => {
-            console.log(values)
+            
         },
 
         validationSchema: formSchema,

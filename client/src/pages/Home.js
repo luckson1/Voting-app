@@ -95,7 +95,7 @@ s
                                         <h1>No awards Found</h1>
                                     ) : (publishedAwards?.map(award => {
                                         
-                                        return <PublicAwards award={award} key={award?._id }/>
+                                        return <PublicAwards  award={award} key={award?._id }/>
                                     }))}
          
         </div>

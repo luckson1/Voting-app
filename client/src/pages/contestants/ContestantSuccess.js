@@ -1,5 +1,5 @@
 import React from 'react';
-import ContestantRegistrationSuccess from '../../Components/ContestantRegistrationSuccess';
+import Success from '../../Components/Success';
 export const ContestantSuccess = () => {
-    return(<ContestantRegistrationSuccess />);
+    return(<Success heading="Registration Successful." message="We will review the application and get back to you." />);
 };

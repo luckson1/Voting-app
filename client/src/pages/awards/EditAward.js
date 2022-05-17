@@ -23,7 +23,7 @@ export const EditAward = () => {
 //get location state date sent from the awards page
 const location=useLocation()
 const state=location?.state
-console.log(location)
+
 
 //use formik to handle form operations 
     const formik = useFormik({

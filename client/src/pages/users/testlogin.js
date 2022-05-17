@@ -1,12 +1,9 @@
 import React, { useEffect } from "react";
-import login from "../../Components/images/login.svg";
-
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import * as Yup from 'yup';
-import { loginUserAction } from "../../redux/slices/users/UserSlices";
+import { createVoteAction } from "../../redux/slices/Votes/VotesSlices";
 
 export const Testlogin = () => {
     // validation
@@ -15,9 +12,12 @@ export const Testlogin = () => {
         password: Yup.string().required("Password is required")
     })
 
+    // force navigation to another url 
+    const navigate = useNavigate()
 
-    // //history
-    const navigate = useNavigate();
+    // //get location data
+const location=useLocation()
+
 
 
     // dispatch
@@ -34,10 +34,10 @@ export const Testlogin = () => {
     const formik = useFormik({
         initialValues: {
             email: "",
-            password: "",
+            contestantVotingFor: ""
         },
         onSubmit: values => {
-            dispatch(loginUserAction(values))
+            dispatch(createVoteAction(values))
         },
 
         validationSchema: formSchema,
@@ -54,10 +54,8 @@ export const Testlogin = () => {
     return (<section className='Form my-4, mx-5 my-0'>
         <div className="container">
         <div className='row bg- no-gutters'  style={{borderRadius:"30px"}}>
-                <div className="col-lg-5 pt-2 px-2 ">
-                    <img src={login} alt="" className="img-fluid" />
-                </div>
-                <div className='col-lg-7 px-5 pt-0 mt-0'>
+                
+                <div className='col-lg px-5 pt-0 mt-0'>
                 <h3 className="fw-bold mb-2 py-2">Create your account</h3>
                             {/* Display Err */}
 
@@ -67,56 +65,7 @@ export const Testlogin = () => {
                 </div>
               ) : null}
                     <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
-                        
-                    <div className="form-row">
-                            <div className='col-lg-7'>
-                                <input
-                                    value={formik.values.firstname}
-                                    onChange={formik.handleChange("firstname")}
-                                    onBlur={formik.handleBlur("firstname")}
-                                    className="form-control mb-2 p-2"
-                                    type="text"
-                                    placeholder="First Name"
-                                />
-                            </div>
-                        </div>
-                        {/* Err */}
-                        <div className="text-danger mb-2">
-                            {formik.touched.firstname && formik.errors.firstname}
-                        </div>
-                        <div className="form-row">
-                            <div className='col-lg-7'>
-                                <input
-                                    value={formik.values.lastname}
-                                    onChange={formik.handleChange("lastname")}
-                                    onBlur={formik.handleBlur("lastname")}
-                                    className="form-control mb-2 p-2"
-                                    type="text"
-                                    placeholder="Last Name"
-                                />
-                            </div>
-                        </div>
-                        {/* Err */}
-                        <div className="text-danger mb-2">
-                            {formik.touched.lastname && formik.errors.lastname}
-                        </div>
-                        <div className="form-row">
-                            <div className='col-lg-7'>
-                                <input
-                                    value={formik.values.phoneNumber}
-                                    onChange={formik.handleChange("phoneNumber")}
-                                    onBlur={formik.handleBlur("phoneNumber")}
-                                    className="form-control mb-2 p-2"
-                                    type="text"
-                                    placeholder="Phone Number"
-                                />
-                            </div>
-                        </div>
-                        {/* Err */}
-                        <div className="text-danger mb-2">
-                            {formik.touched.phoneNumber && formik.errors.phoneNumber}
-                        </div>
-                        <div className="form-row">
+                                                                                                                                   <div className="row">
                             <div className='col-lg-7'>
                                 <input
                                     value={formik.values.email}
@@ -132,7 +81,7 @@ export const Testlogin = () => {
                         <div className="text-danger mb-2">
                             {formik.touched.email && formik.errors.email}
                         </div>
-                        <div className="form-row">
+                        <div className="row">
                             <div className='col-lg-7'>
                                 <input
                                     value={formik.values.company}
@@ -148,60 +97,31 @@ export const Testlogin = () => {
                         <div className="text-danger mb-2">
                             {formik.touched.companyTitle && formik.errors.companyTitle}
                         </div>
-                        <div className="form-row">
-                            <div className='col-lg-7'>
-                                <input
-                                    value={formik.values.companyTitle}
-                                    onChange={formik.handleChange("companyTitle")}
-                                    onBlur={formik.handleBlur("companyTitle")}
-                                    className="form-control mb-2 p-2"
-                                    type="Text"
-                                    placeholder="companyTitle"
-                                />
+                        <div className="row">
+                                <div className='col-lg-7'>
+                                    <div className="mb-3">
+                                        <h6 className='fw-bold'>Select Contestant</h6>
+                                    </div>
+                                    <div className="form-check form-check-inline">
+                                        <input
+                                            className="form-check-input"
+                                            type="radio"
+                                            name="contestant"
+                                            id="Male"
+                                            value='Male'
+                                            // value={formik.values.contestant}
+                                            onChange={() => { formik.setFieldValue('contestant', "Male") }}
+                                            onBlur={formik.handleBlur("contestant")} />
+                                        <label className="form-check-label" htmlFor="Male">Male</label>
+                                    </div>
+                         
+                                </div>
                             </div>
-                        </div>
-                        {/* Err */}
-                        <div className="text-danger mb-2">
-                            {formik.touched.companyTitle && formik.errors.companyTitle}
-                        </div>
-                        <div className="form-row">
-                            <div className='col-lg-7'>
-                                <input
-                                    value={formik.values.image}
-                                    onChange={(e) =>
-                                        formik.setFieldValue('image', e.currentTarget.files[0])
-                                      }
-                                    onBlur={formik.handleBlur("image")}
-                                    className="form-control mb-2 p-2"
-                                    type="file"
-                                    placeholder="image"
-                                />
+                            {/* Err */}
+                            <div className="text-danger mb-2">
+                                {formik.touched.contestant && formik.errors.contestant}
                             </div>
-                        </div>
-                        {/* Err */}
-                        <div className="text-danger mb-2">
-                            {formik.touched.image && formik.errors.image}
-                        </div>
-                        <div className="form-row">
-                            <div className='col-lg-7'>
-                            
-                                <input
-                                    value={formik.values.password}
-                                    onChange={formik.handleChange("password")}
-                                    onBlur={formik.handleBlur("password")}
-                                    className="form-control mb-2 p-2"
-                                    type="password"
-                                    placeholder="Password"
-                                />
-                            </div>
-                           
-                        </div>
-                        {/* Err */}
-                        <div className="text-danger mb-2">
-                            {formik.touched.password && formik.errors.password}
-                        </div>
-
-                        <div className="form-row">
+                        <div className="row">
                             <div className='col-lg-7'>
                                 <button
                                     type="submit"

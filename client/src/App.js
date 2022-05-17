@@ -25,6 +25,7 @@ import { AwardsDetails } from './pages/awards/AwardsDetails';
 import RegisterContestant from './pages/contestants/RegisterContestant';
 import { ContestantSuccess } from './pages/contestants/ContestantSuccess';
 import { Votes } from './pages/votes/Votes';
+import { VotingSuccess } from './pages/votes/VotingSuccess';
 
 
 
@@ -45,6 +46,7 @@ function App() {
           <Route exact path="/award-details" element={<AwardsDetails />} />
           <Route exact path="/register-contestant" element={<RegisterContestant />} />
           <Route exact path="/contestant-success" element={<ContestantSuccess />} />
+          <Route exact path="/vote-success" element={<VotingSuccess />} />
           <Route exact path="/vote-contestant" element={<Votes />} />
 
 

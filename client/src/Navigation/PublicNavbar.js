@@ -60,7 +60,7 @@ const PublicNavbar = () => {
                 </div>
                 {/* Right elements */}
                 <div className="d-flex align-items-center ">
-                    <button className=" nav-item mb-2 btn-warning me-2 ">
+                    <button className=" nav-item mb-2 btn-sm btn-warning me-2 ">
                         <a href="/login" className=" nav-link">
                             Login
                         </a>

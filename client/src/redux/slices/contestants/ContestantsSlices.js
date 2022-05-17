@@ -41,7 +41,7 @@ export const fetchContestantsAction = createAsyncThunk(
     async (payload, { rejectWithValue, getState, dispatch }) => {
         //get user token from store
         const userToken = getState()?.users?.userAuth?.token;
-console.log(userToken)
+
 const config = {
     headers: {
         "Content-Type": "application/json",
@@ -80,12 +80,12 @@ const config = {
     
         };
     
-        console.log(payload)
+        
         try {
             //make http call here
     
             const { data } = await axios.put(`${BaseURL}/contestants/approve/${payload?._id}`, payload, config);
-            console.log(payload?._id)
+            
             return data;
         } catch (error) {
             if (!error?.response) {
@@ -111,12 +111,12 @@ const config = {
     
         };
     
-        console.log(payload)
+        
         try {
             //make http call here
     
             const { data } = await axios.put(`${BaseURL}/contestants/reject/${payload?._id}`, payload, config);
-            console.log(payload?._id)
+            
             return data;
         } catch (error) {
             if (!error?.response) {

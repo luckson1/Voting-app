@@ -61,7 +61,7 @@ const UpdateProfile = () => {
     // get state from store
     const updatedProfile= useSelector ((state) => {return state?.users})
     const{ isProfileUpdated}=updatedProfile
-    console.log(updatedProfile)
+ 
     // redirection
     useEffect (() => {
         if (isProfileUpdated) navigate("/profile")

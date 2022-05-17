@@ -31,7 +31,7 @@ const RegisterContestant = () => {
 
     const location = useLocation()
     const category = location?.state
-    console.log(category)
+    
     // dispatch
     const dispatch = useDispatch()
 
@@ -95,7 +95,7 @@ const RegisterContestant = () => {
                         ) : null}
                         <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
 
-                            <div className="form-row">
+                            <div className="row">
                                 <div className='col-lg-7'>
                                     <input
                                         value={formik.values.firstname}
@@ -111,7 +111,7 @@ const RegisterContestant = () => {
                             <div className="text-danger mb-2">
                                 {formik.touched.firstname && formik.errors.firstname}
                             </div>
-                            <div className="form-row">
+                            <div className="row">
                                 <div className='col-lg-7'>
                                     <input
                                         value={formik.values.lastname}
@@ -127,7 +127,7 @@ const RegisterContestant = () => {
                             <div className="text-danger mb-2">
                                 {formik.touched.lastname && formik.errors.lastname}
                             </div>
-                            <div className="form-row">
+                            <div className="row">
                                 <div className='col-lg-7'>
                                     <input
                                         value={formik.values.phoneNumber}
@@ -143,7 +143,7 @@ const RegisterContestant = () => {
                             <div className="text-danger mb-2">
                                 {formik.touched.phoneNumber && formik.errors.phoneNumber}
                             </div>
-                            <div className="form-row">
+                            <div className="row">
                                 <div className='col-lg-7'>
                                     <input
                                         value={formik.values.email}
@@ -159,7 +159,7 @@ const RegisterContestant = () => {
                             <div className="text-danger mb-2">
                                 {formik.touched.email && formik.errors.email}
                             </div>
-                            <div className="form-row">
+                            <div className="row">
                                 <div className='col-lg-7'>
                                     <input
                                         value={formik.values.country}
@@ -175,7 +175,7 @@ const RegisterContestant = () => {
                             <div className="text-danger mb-2">
                                 {formik.touched.country && formik.errors.country}
                             </div>
-                            <div className="form-row">
+                            <div className="row">
                                 <div className='col-lg-7'>
                                     <div className="mb-3">
                                         <h6 className='fw-bold'>Select Gender</h6>
@@ -210,7 +210,7 @@ const RegisterContestant = () => {
                                 {formik.touched.gender && formik.errors.gender}
                             </div>
 
-                            <div className="form-row">
+                            <div className="row">
                                 <div className='col-lg-7'>
 
                                     <textarea
@@ -228,7 +228,7 @@ const RegisterContestant = () => {
                             <div className="text-danger mb-2">
                                 {formik.touched.bio && formik.errors.bio}
                             </div>
-                            <div className="form-row">
+                            <div className="row">
                                 <div className='col-lg-7'>
 
                                     <textarea
@@ -246,7 +246,7 @@ const RegisterContestant = () => {
                             <div className="text-danger mb-2">
                                 {formik.touched.reasons && formik.errors.reasons}
                             </div>
-                            <div className="form-row">
+                            <div className="row">
                                 <div className='col-lg-7'>
                                 <div className="input-group mb-2 ">
                                     <label
@@ -273,7 +273,7 @@ const RegisterContestant = () => {
                             <div className="text-danger mb-2">
                                 {formik.touched.image && formik.errors.image}
                             </div>
-                            <div className="form-row">
+                            <div className="row">
                                 <div className='col-lg-7'>
                                     <button
                                         type="submit"

@@ -21,7 +21,7 @@ const fetchAllUsersCtrl = expressAsyncHandler(async (req, res) => {
 
 const userProfileCtrl = expressAsyncHandler(async (req, res) => {
     const id=req?.user?._Id
-    console.log(id)
+   
     try {
         
         const profile = await User.findById(id).populate(['awards'])
@@ -94,7 +94,7 @@ const fetchOneUserCtrl = expressAsyncHandler(async (req, res) => {
 
 const updateUserctrl = expressAsyncHandler(async (req, res) => {
     const  id=req?.user?._id
-    console.log(req)
+    
     try {
        
         const profile= await User.findByIdAndUpdate(id, 

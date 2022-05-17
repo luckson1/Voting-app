@@ -1,11 +1,12 @@
 const expressAsyncHandler=require('express-async-handler');
 const Contestants = require('../../models/contestants/Contenstants');
+const awardCategory = require('../../models/awardCategory/AwardCategory');
 const cloudinary = require('../../utils/cloudinary');
 
 
 //contestant apply 
 const registerContestant = expressAsyncHandler(async (req, res) => {
-   console.log(req?.file)
+   
    const filePath=req?.file?.path
   
   try {

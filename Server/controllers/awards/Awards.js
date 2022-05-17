@@ -10,7 +10,7 @@ const createAwardCtrl= expressAsyncHandler(async (req, res) => {
     
     const filePath=req?.file?.path
    const user=req?.user?._id
-    console.log(req)
+    
     try {
         // Upload image to cloudinary
         
@@ -86,7 +86,7 @@ const updateAwardctrl = expressAsyncHandler(async (req, res) => {
 // publish award 
 const publishAwardctrl = expressAsyncHandler(async (req, res) => {
     const { id } = req?.params
-    console.log(req?.body)
+    
             try {
         const award = await Award.findByIdAndUpdate(id, {published:true}, { new: true })
        
@@ -114,7 +114,7 @@ const closeAwardctrl = expressAsyncHandler(async (req, res) => {
 
 const deleteAwardctrl = expressAsyncHandler(async (req, res) => {
     const { id } = req.params
-    console.log(id)
+    
     try {
         const award = await Award.findByIdAndDelete (id)
         res.json(award)

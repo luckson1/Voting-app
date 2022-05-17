@@ -67,7 +67,7 @@ const registerUserCtrl = expressAsyncHandler(async (req, res) => {
 
     } catch (error) {
         res.json({ error })
-        console.log(error)
+      
     }
 });
 

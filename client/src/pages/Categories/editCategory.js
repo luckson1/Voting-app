@@ -45,7 +45,7 @@ export const EditCategory = () => {
 
         },
         onSubmit: values => {
-            console.log(values)
+            
            dispatch(editAwardCategorysAction(values)) 
         },
 

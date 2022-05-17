@@ -133,6 +133,20 @@ awardCategorySchema.virtual("daysLeft").get(function () {
   return Math.round(daysLeft);
 });
 
+
+// virtuals 
+
+// awardCategorySchema.virtual("votes", {
+//   ref: "Vote",
+//   localField: "_id",
+//   foreignField: "AwardCategory",
+// });
+
+awardCategorySchema.virtual("contestants", {
+  ref: "Contestants",
+  localField: "_id",
+  foreignField: "awardCategory",
+});
 //check if applicationStartDate is before votingStartDate
 awardCategorySchema.pre("validate", function (next) {
   if (this.applicationStartDate > this.votingStartDate) {
@@ -163,22 +177,23 @@ awardCategorySchema.pre("validate", function (next) {
 });
 
 // //add virtuals methods to check if application has ended
-// awardCategorySchema.virtual("isApplicationEnded").get(function () {
-//   if (this.applicationEndDate < Date.now()) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// });
+awardCategorySchema.virtual("isApplicationEnded").get(function () {
+  if (this.applicationEndDate < Date.now()) {
+    return true;
+  } else {
+    return false;
+  }
+});
+
 
 // //add virtuals methods to check if voting has ended
-// awardCategorySchema.virtual("isVotingEnded").get(function () {
-//   if (this.votingEndDate < Date.now()) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// });
+awardCategorySchema.virtual("isVotingEnded").get(function () {
+  if (this.votingEndDate < Date.now()) {
+    return true;
+  } else {
+    return false;
+  }
+});
 
 //create model
 const AwardCategory = mongoose.model("AwardCategory", awardCategorySchema);
