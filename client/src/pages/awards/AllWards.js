@@ -40,7 +40,7 @@ useEffect(() => {
 
     return(
         
-        <>
+        <div className="bg-light my-3" style={{ borderRadius: "30px" }}>
         
       <div className='container-fluid'>
         <div className='row'>
@@ -99,6 +99,6 @@ useEffect(() => {
       <div className="mb-5 mt-2 text-center display-3">
         <button type="button" className="btn btn-primary btn-lg btn-block">Load More Awards</button>
       </div>
-        </>
+        </div>
     );
 };

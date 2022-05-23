@@ -24,42 +24,37 @@ export const Home = () => {
   const handleChange2 = (date) => setEndDate(date)
 
   //dispatch
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-//dispatch actions to fetch all awards
-useEffect(() => {dispatch(fetchAwardsAction())}, [dispatch])
-//get  state frin store 
-    const allawards = useSelector(state => state?.awards);
+  //dispatch actions to fetch all awards
+  useEffect(() => { dispatch(fetchAwardsAction()) }, [dispatch])
+  //get  state frin store 
+  const allawards = useSelector(state => state?.awards);
 
   //obtain awards from state
 
-    const {awardCreated, awardLoading, awardAppErr, awardServerErr, isawardDeleted}= allawards
-    const awards=awardCreated?.awards
+  const { awardCreated, awardLoading, awardAppErr, awardServerErr} = allawards
+  const awards = awardCreated?.awards
 
-    
 
-//filter the publised awards
-    const publishedAwards=awards?.filter(award=> award.published===true)
+
+  //filter the publised awards
+  const publishedAwards = awards?.filter(award => award.published === true)
 
 
   return (
     <>
-      <div className='container-fluid my-5'>
-        <div className='row'>
-          <div className=" col col-4 card" style={{ width: '24rem', border: "none" }}>
-
-            <div className="card-body">
-              <h5 className="card-title fw-bold text-success">Best Voting Platform.
-              </h5>
-              <p className="card-text fw-bold">Use the best tools to analyze your data and make your vote a win for you. We have intuitive dashboard to manage all your awards.</p>
-              <a href="/" className="btn btn-primary btn-outline-warning me-2"><h2 className="display-4>">Request Demo</h2></a>
-            </div>
+      <div className='container-fluid my-2 mx-5 '>
+        <div className='row  no-gutters'>
+          <div className="col-lg-4 py-5 px-3  my-3 me-0 bg-light" >
+            <h5 className="fw-bold text-success">Best Voting Platform.
+            </h5>
+            <p className="fw-bold">Use the best tools to analyze your data and make your vote a win for you.
+              We have intuitive dashboard to manage all your awards.</p>
+            <a href="/" className="btn btn-primary btn-outline-warning me-2"><h2 className="display-4>">Request Demo</h2></a>
           </div>
-          <div className=" col col-8 card " style={{  border: "none" }}>
-
-            <div className="card-body">
-              <img src={vote1} className="card-img-top" alt="..." />
-            </div>
+          <div className='col-lg-8 ms-0 my-3' >
+            <img src={vote1} className="card-img-top" alt="..." />
           </div>
         </div>
       </div>
@@ -72,7 +67,7 @@ useEffect(() => {dispatch(fetchAwardsAction())}, [dispatch])
               placeholder="start-date"
               selected={startDate}
               onChange={handleChange}
-              minDate={new Date()} />
+               />
           </div>
           <div className="col-3">
             <label htmlFor="datepicker" className="form-label fw-bold text-secondary">Select end-date</label>
@@ -80,24 +75,24 @@ useEffect(() => {dispatch(fetchAwardsAction())}, [dispatch])
               className='datepicker'
               selected={endDate}
               onChange={handleChange2}
-              minDate={new Date()} />
-          </div>                 
-s
+               />
+          </div>
+          
         </div>
       </div>
       <div className='container-fluid my-3 mx-3'>
         <div className='row ms-4'>
-        {awardLoading ? (
-                                        <h1><LoadingComponent /></h1>
-                                    ) : awardServerErr || awardAppErr ? (
-                                        <div>Err</div>
-                                    ) : awards?.length<= 0 ? (
-                                        <h1>No awards Found</h1>
-                                    ) : (publishedAwards?.map(award => {
-                                        
-                                        return <PublicAwards  award={award} key={award?._id }/>
-                                    }))}
-         
+          {awardLoading ? (
+            <h1><LoadingComponent /></h1>
+          ) : awardServerErr || awardAppErr ? (
+            <div>Err</div>
+          ) : awards?.length <= 0 ? (
+            <h1>No awards Found</h1>
+          ) : (publishedAwards?.map(award => {
+
+            return <PublicAwards award={award} key={award?._id} />
+          }))}
+
         </div>
       </div>
       <div className="tex-center">
@@ -114,7 +109,7 @@ s
               </div>
               <div className="card-body">
                 <h5>Create an Award</h5>
-                <p className="card-text">You can receive voting in three ways that's voters voting using our platform with any kind of payment method, USSD and manual voting</p>
+                <p className="card-text">Easily create an award and its categories in just 2 steps</p>
 
               </div>
             </div>
@@ -125,8 +120,8 @@ s
                 2
               </div>
               <div className="card-body">
-                <h5>Receive Votes</h5>
-                <p className="card-text">You can receive voting in three ways that's voters voting using our platform with any kind of payment method, USSD and manual voting</p>
+                <h5>Contestants to apply</h5>
+                <p className="card-text">Request suitable contestants to apply. You can then Approve or reject contestants</p>
 
               </div>
             </div>
@@ -137,8 +132,8 @@ s
                 3
               </div>
               <div className="card-body">
-                <h5>Get Paid</h5>
-                <p className="card-text">Disbursement of money between the award creator and the platform is paperless that's everything is automatic. </p>
+                <h5>Voting</h5>
+                <p className="card-text">Approved contestants easily receive votes from their supporters </p>
 
               </div>
             </div>

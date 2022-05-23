@@ -1,7 +1,6 @@
 const express=require('express')
 const app=express()
 const cors = require("cors");
-const fileupload= require("express-fileupload")
 
 const dotenv=require ('dotenv')
 const dbConnect = require('./dbConnect');

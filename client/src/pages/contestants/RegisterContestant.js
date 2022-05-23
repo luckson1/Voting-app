@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import {useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { useNavigate } from 'react-router-dom'
@@ -31,7 +31,7 @@ const RegisterContestant = () => {
 
     const location = useLocation()
     const category = location?.state
-    
+
     // dispatch
     const dispatch = useDispatch()
 
@@ -41,7 +41,7 @@ const RegisterContestant = () => {
     const contestants = useSelector((state) => {
         return state?.contestants
     })
-    const { contestantAppErr, contestantServerErr,  ContestantIsRegistered } = contestants;
+    const { contestantAppErr, contestantServerErr, ContestantIsRegistered } = contestants;
     // //form formik
     const formik = useFormik({
         initialValues: {
@@ -78,7 +78,7 @@ const RegisterContestant = () => {
     }, [ContestantIsRegistered, navigate])
 
     return (
-        <section className='Form my-4, mx-5 my-0'>
+        <section className='Form my-4, mx-5 my-0 '>
             <div className="container">
                 <div className='row bg- no-gutters' style={{ borderRadius: "30px" }}>
                     <div className="col-lg-5 pt-2 px-2 ">
@@ -248,10 +248,10 @@ const RegisterContestant = () => {
                             </div>
                             <div className="row">
                                 <div className='col-lg-7'>
-                                <div className="input-group mb-2 ">
+
                                     <label
                                         className="input-group-text bg-info"
-                                        htmlFor="inputGroupFile02">
+                                        htmlFor="image">
                                         Profile Pic
                                     </label>
                                     <input
@@ -264,9 +264,8 @@ const RegisterContestant = () => {
                                         className="form-control"
                                         type="file"
                                         placeholder="Profile Image"
-                                        id="inputGroupFile02"
+                                        id="image"
                                     />
-                                </div>
                                 </div>
                             </div>
                             {/* Err */}

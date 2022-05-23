@@ -26,12 +26,12 @@ const navigate =useNavigate()
 
 
       <div className='col'>
-        <div className="card" style={{ width: "18rem" }}>
+        <div className="card"  style={{ borderRadius: "30px", width: "18rem" }}>
           <div className="embed-responsive embed-responsive-16by9 " style={{ height: "10rem" }}>
 
             <img src={image} className="card-img-top embed-responsive-item mh-100" alt="..." />
           </div>
-          <div className="card-body">
+          <div className="card-body " >
             <h4 className="card-title" >{data?.title}</h4>
             <h6 className="card-title  btn-link text-warning" type="button" onClick={() =>navigate({pathname: '/categories'}, {state: data})} ><i className="bi bi-folder-plus fs-5"> Browse  Categories</i></h6>
             <p className="card-text">{data?.description}</p>

@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import * as Yup from 'yup';
 import { createVoteAction } from "../../redux/slices/Votes/VotesSlices";
 import voting from "../../Components/images/voting.svg"
-import { fetchawardCategorysAction } from "../../redux/slices/AwardCategories/AwardCategorySlices";
+import { fetchawardCategoryAction } from "../../redux/slices/AwardCategories/AwardCategorySlices";
 import { PublicContestants } from "../../Components/PublicContestants";
 export const Votes = () => {
     // validation
@@ -30,7 +30,7 @@ export const Votes = () => {
 
     // get state of all Categories 
     //dispatch actions to fetch all awards
-    useEffect(() => { dispatch(fetchawardCategorysAction(category)) }, [dispatch, category])
+    useEffect(() => { dispatch(fetchawardCategoryAction(category)) }, [dispatch, category])
     // get data from store
     const data = useSelector(state => state?.categories)
 

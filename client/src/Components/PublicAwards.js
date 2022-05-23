@@ -24,7 +24,7 @@ const navigate =useNavigate()
 
 
 
-      <div className='col-3'>
+      <div className='col mx-auto'>
         <div className="card" style={{ width: "18rem" }}>
           <div className="embed-responsive embed-responsive-16by9 " style={{ height: "10rem" }}>
 

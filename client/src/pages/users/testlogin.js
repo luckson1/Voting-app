@@ -16,7 +16,7 @@ export const Testlogin = () => {
     const navigate = useNavigate()
 
     // //get location data
-const location=useLocation()
+// const location=useLocation()
 
 
 
@@ -29,7 +29,7 @@ const location=useLocation()
     const user = useSelector((state) => {
         return state?.users
     })
-    const { userAppErr, userServerErr, userLoading, userAuth } = user;
+    const { userAppErr, userServerErr, userAuth } = user;
     // //form formik
     const formik = useFormik({
         initialValues: {

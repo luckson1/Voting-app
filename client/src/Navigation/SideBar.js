@@ -14,28 +14,28 @@ export const  Sidebar= () => {
             <div className="d-flex flex-sm-column flex-row flex-nowrap bg-dark align-items-left sticky-top">
                                <ul className="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-1 text-center align-items-left ">
                     <li className="nav-item">
-                        <Link to="/" className="nav-link py-2 px-2 my-0" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
-                            <i className="bi-house fs-2"></i> <span><p>Home</p></span>
+                        <Link to="/" className="nav-link py-2 px-2 my-0 text-white " title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+                            <i className="bi-house fs-4"></i> <span><p>Home</p></span>
+                        </Link>
+                    </li>
+                    <li >
+                        <Link to="/dashboard" className="nav-link py-2 px-2 my-0 text-white" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
+                            <i className="bi-speedometer2 fs-4"></i> <span><p>Dashboard</p></span>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/dashboard" className="nav-link py-2 px-2 my-0" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
-                            <i className="bi-speedometer2 fs-2"></i> <span><p>Dashboard</p></span>
+                        <Link to="/all-awards" className="nav-link py-2 px-2 text-white" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                        <i className="bi bi-award fs-4"></i><p >All Awards</p>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/all-awards" className="nav-link py-2 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
-                        <i className="bi bi-award fs-2"></i><p >All Awards</p>
+                        <Link to="/published-awards" className="nav-link py-2 px-2 text-white" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Products">
+                        <i className="bi bi-trophy fs-4"></i> <span><p>Published Awards</p></span>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/published-awards" className="nav-link py-2 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Products">
-                        <i className="bi bi-trophy fs-2"></i> <span><p>Published Awards</p></span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/contestants" className="nav-link py-2 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
-                            <i className="bi-people fs-2"></i><span><p>Contestants</p></span>
+                        <Link to="/contestants" className="nav-link py-2 px-2 text-white" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
+                            <i className="bi-people fs-4"></i><span><p>Contestants</p></span>
                         </Link>
                     </li>
                 </ul>

@@ -22,7 +22,7 @@ const createAwardCategoryCtrl= expressAsyncHandler(async (req, res) => {
 
 const fetchAllAwardCategory= expressAsyncHandler(async (req, res) => {
     try {
-        const awardCategory=await AwardCategory.find({})
+        const awardCategory=await AwardCategory.find({}).populate(['contestants', 'votes'])
         res.json({awardCategory})
     } catch (error) {
         res.json({error}) 

@@ -12,7 +12,7 @@ const image=award?.image
 
 
     return (
-       <>
+        <div className="bg-light my-1" style={{ borderRadius: "30px" }}>
         <div className='container-fluid my-5'>
             <div className='row'>
        <h1 className="text-center text-success"> {award?.title} Categories</h1>
@@ -22,5 +22,5 @@ const image=award?.image
                                     }))}
        </div>
        </div>
-       </>);
+       </div>);
 };

@@ -19,22 +19,15 @@ const PublicNavbar = () => {
                     aria-controls=".navbar-collapse"
                     aria-expanded="false"
                     aria-label="Toggle navigation">
-                  <i class="bi bi-list"></i>
+                    <i class="bi bi-list"></i>
                 </button>
 
                 {/* collapsible wrapper */}
 
                 <div className="collapse navbar-collapse" id=".navbar-collapse">
                     {/* Navbar brand */}
-                    <li className="nav-item mb-2">
 
-
-                        <Link to="/" className="navbar-brand">
-
-                            <img src={star} alt="star" width="30" height="24" loading="lazy" />
-
-                        </Link>
-                    </li>
+                    <img src={star} alt="star" width="30" height="24" loading="lazy" className="nav-item mb-2" />
 
                     {/* Left Links */}
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
@@ -51,11 +44,7 @@ const PublicNavbar = () => {
                                 About
                             </Link>
                         </li>
-                        <li className="nav-item mb-2">
-                            <Link to="/Awards" className=" nav-link active ">
-                                Awards
-                            </Link>
-                        </li>
+
                     </ul>
                 </div>
                 {/* Right elements */}
@@ -66,7 +55,7 @@ const PublicNavbar = () => {
                         </a>
                     </button>
 
-                    
+
 
                 </div>
 

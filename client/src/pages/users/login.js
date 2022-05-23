@@ -29,7 +29,7 @@ const Login = () => {
     const user = useSelector((state) => {
         return state?.users
     })
-    const { userAppErr, userServerErr, userLoading, userAuth}=user;
+    const { userAppErr, userServerErr, userAuth}=user;
     // //form formik
     const formik = useFormik({
         initialValues: {

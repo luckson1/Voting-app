@@ -147,6 +147,12 @@ awardCategorySchema.virtual("contestants", {
   localField: "_id",
   foreignField: "awardCategory",
 });
+
+awardCategorySchema.virtual("votes", {
+  ref: "Vote",
+  localField: "_id",
+  foreignField: "awardCategory",
+});
 //check if applicationStartDate is before votingStartDate
 awardCategorySchema.pre("validate", function (next) {
   if (this.applicationStartDate > this.votingStartDate) {

@@ -57,6 +57,12 @@ awardSchema.virtual("contestants", {
   localField: "_id",
   foreignField: "mainAward",
 });
+awardSchema.virtual("votes", {
+  ref: "Vote",
+  localField: "_id",
+  foreignField: "mainAward",
+});
+
 
 //model
 const Award = mongoose.model("Award", awardSchema);
