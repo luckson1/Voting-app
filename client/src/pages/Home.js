@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import dashboard from '../Components/images/dashboard.png'
-import vote1 from '../Components/images/vote4.jpg'
+import vote1 from '../Components/images/voting4.svg'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.min.css"
 import { useDispatch, useSelector } from 'react-redux';
@@ -45,17 +45,25 @@ export const Home = () => {
   return (
     <>
       <div className='container-fluid my-2 mx-5 '>
-        <div className='row  no-gutters'>
-          <div className="col-lg-4 py-5 px-3  my-3 me-0 bg-light" >
+        <div className='row  no-gutters'  style={{ backgroundImage: `url(${vote1})`, height: "300 px", width: "100%", backgroundSize: 'cover', backgroundPosition: 'center'}}>
+          <div className="col-lg-4 py-5 px-3  my-3 me-0" >
             <h5 className="fw-bold text-success">Best Voting Platform.
             </h5>
             <p className="fw-bold">Use the best tools to analyze your data and make your vote a win for you.
               We have intuitive dashboard to manage all your awards.</p>
             <a href="/" className="btn btn-primary btn-outline-warning me-2"><h2 className="display-4>">Request Demo</h2></a>
           </div>
-          <div className='col-lg-8 ms-0 my-3' >
-            <img src={vote1} className="card-img-top" alt="..." />
+         
+        </div>
+      </div>
+      <div className='container-fluid my-5' >
+        <div className='row'>
+          <div className='col  justify-content-center' >
+            <h1 className="display-5 text-center text-primary fw-bold">Latest Awards</h1>
+            <p className="h6 text-center">These are the latest awards that have been added. You can find past, ongoing and upcoming awards here, by using the filtering options below.</p>
+
           </div>
+
         </div>
       </div>
       <div className="container-fluid my-5 mx-5">
@@ -95,52 +103,10 @@ export const Home = () => {
 
         </div>
       </div>
-      <div className="tex-center">
-        <h1 className="display-3 text-success text-center fw-bold">How It Works</h1>
+      <div className="tex-center my-3">
+        <h1 className="display-5 text-success text-center fw-bold">How It Works</h1>
         <p className="text-center fw-bold"> See how easy to run awards with our platform</p>
       </div>
-
-      <div className='container-fluid my-5'>
-        <div className='row'>
-          <div className='col'>
-            <div className="card text-center">
-              <div className="card-header bg-info display-4">
-                1
-              </div>
-              <div className="card-body">
-                <h5>Create an Award</h5>
-                <p className="card-text">Easily create an award and its categories in just 2 steps</p>
-
-              </div>
-            </div>
-          </div>
-          <div className='col '>
-            <div className="card text-center">
-              <div className="card-header bg-warning display-4">
-                2
-              </div>
-              <div className="card-body">
-                <h5>Contestants to apply</h5>
-                <p className="card-text">Request suitable contestants to apply. You can then Approve or reject contestants</p>
-
-              </div>
-            </div>
-          </div>
-          <div className='col '>
-            <div className="card text-center">
-              <div className="card-header bg-success display-4">
-                3
-              </div>
-              <div className="card-body">
-                <h5>Voting</h5>
-                <p className="card-text">Approved contestants easily receive votes from their supporters </p>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div className='container-fluid my-5'>
         <div className='row'>
           <div className=" col card" style={{ width: "18rem", border: "none" }}>
@@ -161,6 +127,48 @@ export const Home = () => {
           </div>
         </div>
       </div>
+      <div className='container-fluid my-5'>
+        <div className='row'>
+          <div className='col'>
+            <div className="card text-center" style={{ height: "18rem" }}>
+              <div className="card-header bg-info display-4">
+                1
+              </div>
+              <div className="card-body">
+                <h6>Create an Award</h6>
+                <p className="card-text">Easily create an award and its categories in just 2 steps</p>
+
+              </div>
+            </div>
+          </div>
+          <div className='col '>
+            <div className="card text-center" style={{ height: "18rem" }}>
+              <div className="card-header bg-warning display-4">
+                2
+              </div>
+              <div className="card-body">
+                <h6>Contestants to apply</h6>
+                <p className="card-text">Request suitable contestants to apply. hen Approve or reject contestants</p>
+
+              </div>
+            </div>
+          </div>
+          <div className='col '>
+            <div className="card text-center" style={{ height: "18rem" }}>
+              <div className="card-header bg-success display-4">
+                3
+              </div>
+              <div className="card-body">
+                <h6>Voting</h6>
+                <p className="card-text">Approved contestants easily receive votes from their supporters </p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+     
 
     </>
 
