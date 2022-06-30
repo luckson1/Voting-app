@@ -180,7 +180,7 @@ const Register = () => {
                         <div className="form-row">
                             <div className='col-lg-7'>
                                 <input
-                                    value={formik.values.image}
+                                    value={undefined}
                                     onChange={(e) =>
                                         formik.setFieldValue('image', e.currentTarget.files[0])
                                       }
