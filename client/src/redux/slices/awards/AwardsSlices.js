@@ -77,6 +77,39 @@ const config = {
 
     });
 
+
+    // get allawards created by a user
+    export const fetchUserAwardsAction = createAsyncThunk(
+        "userAward/fetch",
+        async (payload, { rejectWithValue, getState, dispatch }) => {
+            //get user token from store
+            const userToken = getState()?.users?.userAuth?.token;
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userToken}`,
+        },
+    
+            };
+    
+    
+            try {
+                //make http call here
+    
+                const { data } = await axios.get(`${BaseURL}/awards/user/:id`, config);
+                return data;
+    
+            } catch (error) {
+                if (!error?.response) {
+                    throw error;
+                }
+                return rejectWithValue(error?.response?.data);
+            }
+    
+    
+    
+        });
+
     // action to handle one award 
 //create award action
 
@@ -263,6 +296,33 @@ const awardsSlices = createSlice({
         //hande rejected state
 
         builder.addCase(fetchAwardsAction.rejected, (state, action) => {
+            state.awardLoading = false;
+            state.awardAppErr = action?.payload?.msg;
+            state.awardServerErr = action?.error?.msg;
+        })
+
+
+        // fetch all awards
+        //handle pending state
+        builder.addCase(fetchUserAwardsAction.pending, (state, action) => {
+            state.awardLoading = true;
+            state.awardAppErr = undefined;
+            state.awardServerErr = undefined;
+
+        });
+        
+        
+        //hande success state
+        builder.addCase(fetchUserAwardsAction.fulfilled, (state, action) => {
+            state.awardCreated = action?.payload;
+            state.awardLoading = false;
+            state.awardAppErr = undefined;
+            state.awardServerErr = undefined;
+            
+        });
+        //hande rejected state
+
+        builder.addCase(fetchUserAwardsAction.rejected, (state, action) => {
             state.awardLoading = false;
             state.awardAppErr = action?.payload?.msg;
             state.awardServerErr = action?.error?.msg;

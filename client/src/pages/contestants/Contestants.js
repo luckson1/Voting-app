@@ -34,8 +34,8 @@ const awards=awardCreated?.awards
                 <th>Gender</th>
                 <th>Creation Date</th>
                 <th>Status</th>
-                <th>Approve</th>
-                <th>Reject</th>
+                <th>Action</th>
+            
               </tr>
             </thead>
             <tbody>

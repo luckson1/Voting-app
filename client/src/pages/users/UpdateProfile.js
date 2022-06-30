@@ -18,7 +18,7 @@ const formSchema = Yup.object({
     company: Yup.string().required("company is required"),
     companyTitle: Yup.string().required("companyTitle is required"),
     phoneNumber: Yup.string().required("phoneNumber is required"),
-    image: Yup.string().required("image is required"),
+    // image: Yup.string().required("image is required"),
 
 })
 

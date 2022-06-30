@@ -99,6 +99,41 @@ const config = {
             try {
                 //make http call here
     
+                const { data } = await axios.get(`${BaseURL}/awardCategories/all`, config);
+                return data;
+    
+            } catch (error) {
+                if (!error?.response) {
+                    throw error;
+                }
+                return rejectWithValue(error?.response?.data);
+            }
+    
+    
+    
+        });
+
+
+        //get all categories belonging to a User
+
+    export const fetchUserAwardCategoriesAction = createAsyncThunk(
+        "userAwardCategories/fetch",
+        async (payload, { rejectWithValue, getState, dispatch }) => {
+            //get user token from store
+            const userToken = getState()?.users?.userAuth?.token;
+    
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userToken}`,
+        },
+    
+            };
+    
+    
+            try {
+                //make http call here
+    
                 const { data } = await axios.get(`${BaseURL}/awardCategories`, config);
                 return data;
     
@@ -320,6 +355,32 @@ const awardCategorysSlices = createSlice({
         //hande rejected state
 
         builder.addCase(fetchawardCategoriesAction.rejected, (state, action) => {
+            state.awardCategoryLoading = false;
+            state.awardCategoryAppErr = action?.payload?.msg;
+            state.awardCategoryServerErr = action?.error?.msg;
+        })
+
+         //  fetch all award categories belonging to a user
+        //handle pending state
+        builder.addCase(fetchUserAwardCategoriesAction.pending, (state, action) => {
+            state.awardCategoryLoading = true;
+            state.awardCategoryAppErr = undefined;
+            state.awardCategoryServerErr = undefined;
+
+        });
+        
+        
+        //hande success state
+        builder.addCase(fetchUserAwardCategoriesAction.fulfilled, (state, action) => {
+            state.awardCategoryCreated = action?.payload;
+            state.awardCategoryLoading = false;
+            state.awardCategoryAppErr = undefined;
+            state.awardCategoryServerErr = undefined;
+            
+        });
+        //hande rejected state
+
+        builder.addCase(fetchUserAwardCategoriesAction.rejected, (state, action) => {
             state.awardCategoryLoading = false;
             state.awardCategoryAppErr = action?.payload?.msg;
             state.awardCategoryServerErr = action?.error?.msg;

@@ -110,9 +110,10 @@ export const fetchUserProfileAction = createAsyncThunk('user/profile', async (pa
 //update profile state
 export const updateProfileAction = createAsyncThunk('user/update', async (payload, { rejectWithValue, getState, dispatch }) => {
     const userToken = getState()?.users?.userAuth?.token;
+    console.log(userToken)
     const config = {
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${userToken}`,
         },
     };
@@ -120,7 +121,7 @@ export const updateProfileAction = createAsyncThunk('user/update', async (payloa
     try {
         //http call
         const { data } = await axios.get(
-            `${BaseURL}/users/profile`, payload, config);
+            `${BaseURL}/users`, payload, config);
           dispatch(resetProfileUpdated) 
         return data;
 

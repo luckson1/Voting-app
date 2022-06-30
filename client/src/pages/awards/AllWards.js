@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Awards } from '../../Components/Awards';
 import LoadingComponent from '../../Components/Loading';
-import { fetchAwardsAction } from '../../redux/slices/awards/AwardsSlices';
+import {  fetchUserAwardsAction } from '../../redux/slices/awards/AwardsSlices';
 
 
 
@@ -19,7 +19,7 @@ export const AllWards = () => {
 const dispatch = useDispatch()
 
 //dispatch actions to fetch all awards
-useEffect(() => {dispatch(fetchAwardsAction())}, [dispatch])
+useEffect(() => {dispatch(fetchUserAwardsAction())}, [dispatch])
 //get  state frin store 
     const allawards = useSelector (state => state?.awards);
 
