@@ -94,6 +94,7 @@ const fetchOneUserCtrl = expressAsyncHandler(async (req, res) => {
 
 const updateUserctrl = expressAsyncHandler(async (req, res) => {
     const  id=req?.user?._id
+    console.log(id)
     
     try {
        

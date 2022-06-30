@@ -12,7 +12,7 @@ userRoutes.get("/:_Id", authentication, fetchOneUserCtrl)
 userRoutes.get("/", authentication, fetchAllUsersCtrl)
 userRoutes.get("/profile", authentication,userProfileCtrl)
 userRoutes.post("/create", authentication, createUserctrl)
-userRoutes.put("/update", updateUserctrl)
+userRoutes.put("/", authentication, updateUserctrl)
 
 module.exports = userRoutes
 

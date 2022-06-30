@@ -30,12 +30,27 @@ const fetchAllAwardCategory= expressAsyncHandler(async (req, res) => {
 });
 
 
+// fetch all awards of a given user 
+// fetch all awardCategory
+
+const fetchUserAwardCategory= expressAsyncHandler(async (req, res) => {
+    const user= req?.user?._id
+    console.log(req)
+    try {
+        const awardCategory=await AwardCategory.find({user:user}).populate(['contestants', 'votes'])
+        res.json({awardCategory})
+    } catch (error) {
+        res.json({error}) 
+    }
+});
+
+
 
 // fetch one awardCategory
 
 const fetchOneAwardCategoryCtrl = expressAsyncHandler(async (req, res) => {
     const { id } = req?.params
-    console.log(id)
+
     try {
         const awardCategory= await AwardCategory.findById(id).populate('contestants')
         res.json({awardCategory})
@@ -64,7 +79,7 @@ const updateAwardCategoryctrl = expressAsyncHandler(async (req, res) => {
 // // publish award 
 const publishAwardCategoryctrl = expressAsyncHandler(async (req, res) => {
     const { id } = req?.params
-    console.log(id)
+   
    
             try {
         const awardCategory = await AwardCategory.findByIdAndUpdate(id, {published:true}, { new: true })
@@ -91,4 +106,4 @@ const deleteAwardCategoryctrl = expressAsyncHandler(async (req, res) => {
     }
 })
 
-module.exports ={publishAwardCategoryctrl, createAwardCategoryCtrl, fetchOneAwardCategoryCtrl, fetchAllAwardCategory, updateAwardCategoryctrl, deleteAwardCategoryctrl}
+module.exports ={fetchUserAwardCategory, publishAwardCategoryctrl, createAwardCategoryCtrl, fetchOneAwardCategoryCtrl, fetchAllAwardCategory, updateAwardCategoryctrl, deleteAwardCategoryctrl}

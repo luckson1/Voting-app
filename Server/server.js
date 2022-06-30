@@ -62,4 +62,4 @@ app.use('/api/votes', votesRoute)
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(PORT, console.log(`server is running on running on port ${5000}`))
+app.listen(PORT, console.log(`server is running on running on port ${PORT}`))

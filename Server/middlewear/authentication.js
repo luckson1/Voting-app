@@ -7,17 +7,17 @@ const authentication=expressAsyncHandler(async (req, res, next) => {
 
     if (req?.headers?.authorization?.startsWith("Bearer")) {
       token = req?.headers?.authorization?.split(" ")[1];
-      
+      console.log(token)
       try {
         if (token) {
           const decodedUser = jwt.verify(token, process.env.JWT_KEY);
          
           //find the user
           const user = await User.findById(decodedUser?.id);
-        
+    
           //attach the user the req obj
           req.user = user;
-          
+      
           
           next();
         }

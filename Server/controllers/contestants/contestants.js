@@ -25,7 +25,9 @@ const registerContestant = expressAsyncHandler(async (req, res) => {
 //fetch all contestants
 
 const fetchAllCtrl= expressAsyncHandler( async (req, res)=> {
-    try { const contestants= await Contestants.find({});
+  user=req?.user?.id
+  console.log(user)
+    try { const contestants= await Contestants.find({companyApplyTo:user});
         res.json({contestants})
         
     } catch (error) {
