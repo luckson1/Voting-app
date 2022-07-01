@@ -113,7 +113,7 @@ export const updateProfileAction = createAsyncThunk('user/update', async (payloa
     console.log(userToken)
     const config = {
         headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
             Authorization: `Bearer ${userToken}`,
         },
     };
