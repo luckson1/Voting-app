@@ -120,9 +120,9 @@ export const updateProfileAction = createAsyncThunk('user/update', async (payloa
 
     try {
         //http call
-        const { data } = await axios.get(
+        const { data } = await axios.put(
             `${BaseURL}/users`, payload, config);
-          dispatch(resetProfileUpdated) 
+          dispatch(resetProfileUpdated()) 
         return data;
 
     } catch (error) {

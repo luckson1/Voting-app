@@ -67,7 +67,9 @@ const [endDate, setEndDate]=useState(new Date())
     const navigate = useNavigate()
     //dispatch
     useEffect(() => {
-        if (isawardCategoryCreated) navigate({ pathname: '/categories' }, { state: mainAward })
+        if (isawardCategoryCreated) {
+            navigate({ pathname: '/categories' }, { state: mainAward })}
+        
     }, [isawardCategoryCreated, dispatch, navigate, mainAward])
 
 

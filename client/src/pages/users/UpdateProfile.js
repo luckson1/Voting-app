@@ -1,14 +1,10 @@
 import React, { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// import { useDispatch , useSelector } from "react-redux";
 import { useFormik } from "formik";
-// import {useNavigate} from 'react-router-dom'
 import * as Yup from 'yup';
 import login from "../../Components/images/login.svg"
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfileAction } from "../../redux/slices/users/UserSlices";
-// import { loginUserAction } from "../../redux/slices/users/userSlices";
-// import DisabledButton from "../../components/disableButton";
 
 // validation
 const formSchema = Yup.object({
