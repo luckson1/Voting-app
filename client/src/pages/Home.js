@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 
 import dashboard from '../Components/images/dashboard.png'
 import vote1 from '../Components/images/voting4.svg'
-import DatePicker from 'react-datepicker'
+// import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.min.css"
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAwardsAction } from '../redux/slices/awards/AwardsSlices';
@@ -18,10 +18,10 @@ import { PublicAwards } from '../Components/PublicAwards';
 
 export const Home = () => {
 
-  const [startDate, setStartDate] = useState(new Date())
-  const handleChange = (date) => setStartDate(date)
-  const [endDate, setEndDate] = useState(new Date())
-  const handleChange2 = (date) => setEndDate(date)
+  // const [startDate, setStartDate] = useState(new Date())
+  // const handleChange = (date) => setStartDate(date)
+  // const [endDate, setEndDate] = useState(new Date())
+  // const handleChange2 = (date) => setEndDate(date)
 
   //dispatch
   const dispatch = useDispatch()
@@ -45,8 +45,11 @@ export const Home = () => {
   return (
     <>
       <div className='container-fluid my-2 mx-5 '>
-        <div className='row  no-gutters'  style={{ backgroundImage: `url(${vote1})`, height: "300 px", width: "100%", backgroundSize: 'cover', backgroundPosition: 'center'}}>
-          <div className="col-lg-4 py-5 px-3  my-3 me-0" >
+        <div className='row  no-gutters'  >
+        <div className="col-md-7 pt-2 px-2">
+                    <img src={vote1} alt="" className="img-fluid" />
+                </div>
+          <div className="col-md-5 py-3 ps-0  my-3 pe-5" >
             <h5 className="fw-bold text-success">Best Voting Platform.
             </h5>
             <p className="fw-bold">Use the best tools to analyze your data and make your vote a win for you.
@@ -66,7 +69,7 @@ export const Home = () => {
 
         </div>
       </div>
-      <div className="container-fluid my-5 mx-5">
+      {/* <div className="container-fluid my-5 mx-5">
         <div className='row'>
           <div className="col-3">
             <label htmlFor="datepicker" className="form-label fw-bold text-secondary ">Select start-date</label>
@@ -87,7 +90,7 @@ export const Home = () => {
           </div>
           
         </div>
-      </div>
+      </div> */}
       <div className='container-fluid my-3 mx-3'>
         <div className='row ms-4'>
           {awardLoading ? (
@@ -103,15 +106,15 @@ export const Home = () => {
 
         </div>
       </div>
-      <div className="tex-center my-3">
+      <div className="tex-center my-3 ms-4">
         <h1 className="display-5 text-success text-center fw-bold">How It Works</h1>
         <p className="text-center fw-bold"> See how easy to run awards with our platform</p>
       </div>
-      <div className='container-fluid my-5'>
-        <div className='row'>
-          <div className=" col card" style={{ width: "18rem", border: "none" }}>
+      <div className='container-fluid my-5 ms-3'>
+        <div className='row' style={{borderRadius: "20px"}}>
+          <div className=" col-sm card" style={{ width: "100%", border: "none" , borderTopLeftRadius: "20px", borderTopRightRadius: "20px"}}>
 
-            <div className="card-body">
+            <div className="card-body" >
               <h5 className="card-title fw-bold">Modern Dashboard
                 To get manage your awards.
               </h5>
@@ -119,7 +122,7 @@ export const Home = () => {
               <a href="/" className="btn btn-primary "><h2 className="display-4>">Request Demo</h2></a>
             </div>
           </div>
-          <div className=" col card " style={{ width: "18rem", border: "none" }}>
+          <div className=" col-sm card " style={{ width: "100%", border: "none" , borderBottomLeftRadius: "20px", borderBottomRightRadius: "20px"}}>
 
             <div className="card-body">
               <img src={dashboard} className="card-img-top" alt="..." />
@@ -129,9 +132,9 @@ export const Home = () => {
       </div>
       <div className='container-fluid my-5'>
         <div className='row'>
-          <div className='col'>
-            <div className="card text-center" style={{ height: "18rem" }}>
-              <div className="card-header bg-info display-4">
+          <div className='col-sm mb-3 mx-3' >
+            <div className="card text-center" style={{ height: "18rem" , border: "1px solid black" ,borderRadius: "20px"}}>
+              <div className="card-header bg-info display-4" style= {{borderTopLeftRadius: "20px", borderTopRightRadius: "20px"}}>
                 1
               </div>
               <div className="card-body">
@@ -141,9 +144,9 @@ export const Home = () => {
               </div>
             </div>
           </div>
-          <div className='col '>
-            <div className="card text-center" style={{ height: "18rem" }}>
-              <div className="card-header bg-warning display-4">
+          <div className='col-sm mb-3 ms-3'>
+            <div className="card text-center" style={{ height: "18rem" , border: "1px solid black" ,borderRadius: "20px"}}>
+              <div className="card-header bg-warning display-4 " style= {{borderTopLeftRadius: "20px", borderTopRightRadius: "20px"}}>
                 2
               </div>
               <div className="card-body">
@@ -153,9 +156,9 @@ export const Home = () => {
               </div>
             </div>
           </div>
-          <div className='col '>
-            <div className="card text-center" style={{ height: "18rem" }}>
-              <div className="card-header bg-success display-4">
+          <div className='col-sm mb-3 ms-3' >
+            <div className="card text-center" style={{ height: "18rem", border: "1px solid black" ,borderRadius: "20px"}}>
+              <div className="card-header bg-success display-4" style= {{borderTopLeftRadius: "20px", borderTopRightRadius: "20px"}}>
                 3
               </div>
               <div className="card-body">

@@ -24,11 +24,11 @@ const navigate =useNavigate()
 
 
 
-      <div className='col mx-auto'>
-        <div className="card my-3" style={{ width: "18rem", height: "36rem"}}>
+      <div className='col mx-auto' >
+        <div className="card my-3" style={{ width: "18rem", height: "36rem" , borderRadius: "20px"}}>
           <div className="embed-responsive embed-responsive-16by9 " style={{ height: "10rem" }}>
 
-            <img src={image} className="card-img-top embed-responsive-item mh-100" alt="..." />
+            <img src={image} className="card-img-top embed-responsive-item mh-100" alt="..." style={{borderTopLeftRadius: "20px", borderTopRightRadius: "20px"}}/>
           </div>
           <div className="card-body">
             <h4 className="card-title" >{data?.title}</h4>
