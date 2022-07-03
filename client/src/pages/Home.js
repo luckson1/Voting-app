@@ -132,7 +132,7 @@ export const Home = () => {
       </div>
       <div className='container-fluid my-5'>
         <div className='row'>
-          <div className='col-sm mb-3 mx-3' >
+          <div className='col-sm mb-3 me-3' >
             <div className="card text-center" style={{ height: "18rem" , border: "1px solid black" ,borderRadius: "20px"}}>
               <div className="card-header bg-info display-4" style= {{borderTopLeftRadius: "20px", borderTopRightRadius: "20px"}}>
                 1

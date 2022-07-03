@@ -107,7 +107,7 @@ const Login = () => {
                             <div className='col-lg-7'>
                                 <button
                                     type="submit"
-                                    className="btn btn-primary py-2 w-100 my-4"
+                                    className=" btn-lg btn-primary py-2 w-100 my-4"
                                 >
                                     Login
                                 </button>

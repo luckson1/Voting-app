@@ -49,11 +49,11 @@ const PublicNavbar = () => {
                 </div>
                 {/* Right elements */}
                 <div className="d-flex align-items-center ">
-                    <button className=" nav-item mb-2 btn-sm btn-warning me-2 ">
-                        <a href="/login" className=" nav-link">
+                    <Link to ="/login" className=" nav-item mb-2 btn-lg btn-warning me-2 ">
+                       
                             Login
-                        </a>
-                    </button>
+                       
+                    </Link>
 
 
 
